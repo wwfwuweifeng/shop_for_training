@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/home/index/index",
+    "pages/user/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "VPR电子签约",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#A80000",
+    "backgroundColor": "#eeeeee"
+  },
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "van-tabbar": "/miniprogram_npm/vant-weapp/tabbar/index",
+    "van-tabbar-item": "/miniprogram_npm/vant-weapp/tabbar-item/index",
+    "van-card": "/miniprogram_npm/vant-weapp/card/index",
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "van-field": "/miniprogram_npm/vant-weapp/field/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index",
+    "van-tag": "/miniprogram_npm/vant-weapp/tag/index",
+    "van-goods-action": "/miniprogram_npm/vant-weapp/goods-action/index",
+    "van-goods-action-icon": "/miniprogram_npm/vant-weapp/goods-action-icon/index",
+    "van-goods-action-button": "/miniprogram_npm/vant-weapp/goods-action-button/index",
+    "van-row": "/miniprogram_npm/vant-weapp/row/index",
+    "van-col": "/miniprogram_npm/vant-weapp/col/index",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "van-steps": "/miniprogram_npm/vant-weapp/steps/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-radio": "/miniprogram_npm/vant-weapp/radio/index",
+    "van-radio-group": "/miniprogram_npm/vant-weapp/radio-group/index",
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index",
+    "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
+    "van-area": "/miniprogram_npm/vant-weapp/area/index",
+    "van-picker": "/miniprogram_npm/vant-weapp/picker/index",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+  },
+  "tabBar": {
+    "color": "#5f616c",
+    "selectedColor": "#f13030",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/home/index/index",
+        "iconPath": "image/homeIcon.png",
+        "selectedIconPath": "image/homeClick.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/user/index/index",
+        "iconPath": "image/userIcon.png",
+        "selectedIconPath": "image/userClick.png",
+        "text": "个人"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
