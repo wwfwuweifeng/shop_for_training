@@ -1,2 +1,81 @@
 <!--pages/user/myInfo/myInfo.wxml-->
-<text>pages/user/myInfo/myInfo.wxml</text>
+<view class="container" style='background-color: whitesmoke'>
+<view style='width:100%'>
+<van-cell-group title="我的信息">
+  <van-cell title="微信名" value="{{myInfo.wxName}}" label="授权后更新"/>
+    <van-field
+    label="我的姓名"
+    required
+    readonly
+    value="{{myInfo.userName}}"
+    input-align="right"
+  />
+
+  <van-field
+    label="我的商铺名"
+    data-field="shopName"
+    value="{{myInfo.shopName}}"
+    placeholder="一旦设置成功，则无法修改/暂无权限"
+    readonly="{{myInfo.isAllowModify==0}}"
+    bind:change="fieldInput"
+    input-align="right"
+  />
+
+  <van-cell title="性别"  is-link value="{{userSex}}" bind:click="editSex" required />
+  <van-field
+    label="手机号码"
+    data-field="telNum"
+    value="{{myInfo.telNum}}"
+    placeholder="请输入手机号码"
+    bind:change="fieldInput"
+    input-align="right"
+  />
+    <van-field
+    label="邮箱"
+    value="{{myInfo.email}}"
+    data-field="email"
+    placeholder="请输入您的邮箱"
+    bind:change="fieldInput"
+    input-align="right"
+  />
+  <!-- <picker mode="region" bindchange="bindRegionChange" value="{{address}}">
+  <view>
+    <van-cell title="居住地" icon="location-o" is-link value="{{myAddress}}"/> 
+  </view>
+  </picker> -->
+</van-cell-group>
+</view>
+<view class='submit-view'>
+  <van-button bind:click="saveEdit" round disabled='{{!isEdit}}'>保存修改</van-button>
+</view>
+<!-- <van-area area-list="{{ areaList }}" /> -->
+<van-popup
+  show="{{ isEditSex }}"
+  position="bottom"
+  bind:close="onCancelSex"
+>
+  <van-picker
+  style='width:100%;'
+  show-toolbar
+  title="性别"
+  columns="{{ columns }}"
+  bind:cancel="onCancelSex"
+  bind:confirm="onConfirmSex"
+/>
+</van-popup>
+
+<!-- <picker
+    mode="region"
+    bindchange="bindRegionChange"
+    value="{{myInfo.address}}"
+    style='width:100%;height:50px;'
+  /> -->
+  <!-- <picker mode="region" bindchange="bindRegionChange">
+    <view class="picker">
+      当前选择：
+    </view>
+  </picker> -->
+
+</view>
+<van-toast id="van-toast"/>
+<van-notify id="van-notify" />

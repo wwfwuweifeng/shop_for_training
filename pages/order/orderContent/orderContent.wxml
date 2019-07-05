@@ -1,0 +1,102 @@
+<!--pages/contract/infoContent/infoContent.wxml-->
+<scroll-view class='container' style='height:{{scrollViewHeight}}px;width:100%;' scroll-y>
+
+  <view class='header-view'>
+    <text>等待发货</text>
+    <van-icon name="comment" color='white' size='35px' />
+  </view>
+  <view class='address'>
+    <van-cell border="{{false}}" title="收货地址" icon="location-o" value="吴炜锋  17862705895"/>
+    <van-cell value="上海市浦东新区云雅路555弄31号401室"/>
+  </view>
+  <view class="goods-list">
+  <view class='info-title'>
+      <text>商品清单</text>
+    </view>
+
+      <view class='card-view' wx:for="{{goodsList}}">
+    <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+      <van-card title="{{item.goodsName}}" thumb="{{item.goodsImageUrl}}" price="10.00" num="2">
+        <view slot="desc" class='desc-view'>
+          <view>
+            <van-tag wx:for="{{item.tags}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">
+              {{myTag}}
+            </van-tag>
+          </view>
+          <!-- 最多含3个标签，每个标签不超过5个字 -->
+        </view>
+      </van-card>
+    </navigator>
+  </view>
+  <van-cell border="{{false}}" title="合计金额" icon="gold-coin-o" value="￥{{sumMoney}}"  />
+  </view>
+
+
+  <view class="info-view">
+    <view class='info-title'>
+      <text>订单信息</text>
+    </view>
+
+    <view class='info-content'>
+      <van-row>
+        <van-col span="6">订单编号：</van-col>
+        <van-col span="18">0013 1230 4214 3211</van-col>
+      </van-row>
+      
+      <van-row>
+        <van-col span="6">当前状态：</van-col>
+        <van-col span="18">等待揽件</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">下单时间：</van-col>
+        <van-col span="18">2019.01.01 12:00:00</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">付款时间：</van-col>
+        <van-col span="18">2019.01.01 12:00:00</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">发货时间：</van-col>
+        <van-col span="18">2019.01.01 12:00:00</van-col>
+      </van-row>
+            <van-row>
+        <van-col span="6">快递单号：</van-col>
+        <van-col span="18">03120434242142443</van-col>
+      </van-row>
+      <van-row>
+          <van-col span="6">成交时间：</van-col>
+          <van-col span="18">2019.01.01 12:00:00</van-col>
+      </van-row>
+    </view>
+
+  </view>
+
+  <view class="process-view">
+    <view class='info-title'>
+      <text>订单流程</text>
+    </view>
+    <view>
+      <van-steps steps="{{goodsSteps}}" active="{{active}}" direction="vertical" active-color="#FE6544" />
+    </view>
+  </view>
+</scroll-view>
+
+<view>
+  <van-goods-action>
+    <van-goods-action-icon
+    icon="cash-back-record"
+    text="退款"
+    disabled="{{true}}"
+  />
+    <van-goods-action-icon icon="close" text="取消订单" bind:click="onClickCancel"/>
+    <!-- <van-goods-action-button
+    text="合同正文""
+    type="warning"
+    bind:click="onClickButton"
+  /> -->
+    <van-goods-action-button text="立即付款" bind:click="onClickMainAction" disabled="{{contractInfo.isAllowClickMainButton==1}}" />
+  </van-goods-action>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-dialog id="van-dialog" />

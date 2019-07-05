@@ -1,0 +1,47 @@
+<!--pages/recommend/index/index.wxml-->
+<view class="main">
+<van-search value="{{ keyWord }}" placeholder="搜索范围为整个市场" show-action bind:search="onSearch" bind:cancel="onCancel" />
+  <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
+    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="100%" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- <view class="selected">
+        <view class="select-title"><text>热销商品</text></view>
+        <view class="select-top">
+            <view class="select-top-small">
+                <navigator url="list/list?type=1&picture=list1.png">
+                    <image src="http://image.wuweifeng.top/shop/1.png"></image>
+                </navigator>
+            </view>
+            <view class="select-top-small">
+                <navigator url="list/list?type=2&picture=list2.png">
+                    <image src="http://image.wuweifeng.top/shop/2.png"></image>
+                </navigator>
+            </view>
+        </view>
+        <view class="select-bottom">
+            <navigator url="list/list?type=3&picture=list3.png">
+                <image src="http://image.wuweifeng.top/shop/3.png"></image>
+            </navigator>
+        </view>
+    </view> -->
+  <view class="newest">
+        <view class="newest-title" style='font-weight: bold;'><text>热销商品</text></view>
+        <!-- <view wx:for="{{goodsList}}" wx:key="key" class="newest-list" style='margin-top: 3px;'>
+    <van-card num="2" price="{{item.sellPrice}}" desc="描述信息" title="{{item.name}}" thumb="{{ item.picture }}" />
+  </view> -->
+        <view class="newest-box">
+            <view wx:for="{{goodsList}}" wx:key="key" class="newest-list" >
+                <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+                    <image src="{{item.picture}}"></image>
+                    <view class="newest-text van-ellipsis" style='font-weight: bold;'><text>{{item.name}}</text></view>
+                    <view class="newest-text van-ellipsis" style='font-weight: bold;color:red'><text>￥{{item.sellPrice}}</text></view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</view>

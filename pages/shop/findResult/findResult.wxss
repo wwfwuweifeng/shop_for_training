@@ -1,0 +1,46 @@
+/* pages/shop/goodsList/goodsList.wxss */
+@import '../../../common/common.wxss';
+.desc-text{
+  /* margin-top: 4px; */
+  margin-bottom: 2px;
+  color:rgb(128, 125, 125);
+  font-size: 12px;
+  font: bold;
+}
+
+.card-view view{
+  background-color: white;
+}
+.card-view{
+  border-bottom: 1px solid whitesmoke;
+}
+
+.cate-title{
+    position: relative;
+    height: 30rpx;
+    line-height: 30rpx;
+    padding:30rpx 0 30rpx;
+    text-align: center;
+    color: #FE6544;
+    font-size: 30rpx;
+    font-weight: bold;
+    border-bottom: 7px solid #ededed;
+}
+/* .cate-title::before{
+    position: absolute;
+    left: 130rpx;
+    top: 43rpx;
+    content: '';
+    width: 70rpx;
+    height: 4rpx;
+    background: #FE6544;
+}
+.cate-title::after{
+    position: absolute;
+    right: 130rpx;
+    top: 43rpx;
+    content: '';
+    width: 70rpx;
+    height: 4rpx;
+    background: #FE6544;
+} */

@@ -1,12 +1,24 @@
 {
   "pages": [
-    "pages/home/index/index",
-    "pages/user/index/index"
+    "pages/index/index",
+    "pages/order/submitOrder/submitOrder",
+    "pages/recommend/index/index",
+    "pages/user/index/index",
+    "pages/user/myInfo/myInfo",
+    "pages/cart/index/index",
+    "pages/shop/index/index",
+    "pages/shop/goodsList/goodsList",
+    "pages/shop/goodsContent/goodsContent",
+    "pages/address/address",
+    "pages/order/orderContent/orderContent",
+    "pages/order/buyOrderList/buyOrderList",
+    "pages/order/saleOrderList/saleOrderList",
+    "pages/shop/findResult/findResult"
   ],
   "window": {
-    "navigationBarTitleText": "VPR电子签约",
+    "navigationBarTitleText": "小招猫市场",
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#A80000",
+    "navigationBarBackgroundColor": "#FE6544",
     "backgroundColor": "#eeeeee"
   },
   "usingComponents": {
@@ -33,7 +45,11 @@
     "van-notify": "/miniprogram_npm/vant-weapp/notify/index",
     "van-area": "/miniprogram_npm/vant-weapp/area/index",
     "van-picker": "/miniprogram_npm/vant-weapp/picker/index",
-    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-notice-bar": "/miniprogram_npm/vant-weapp/notice-bar/index",
+    "van-submit-bar": "/miniprogram_npm/vant-weapp/submit-bar/index",
+    "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index"
   },
   "tabBar": {
     "color": "#5f616c",
@@ -42,16 +58,28 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/home/index/index",
-        "iconPath": "image/homeIcon.png",
-        "selectedIconPath": "image/homeClick.png",
-        "text": "首页"
+        "pagePath": "pages/recommend/index/index",
+        "iconPath": "image/recommend.png",
+        "selectedIconPath": "image/recommendClick.png",
+        "text": "推荐"
+      },
+      {
+        "pagePath": "pages/shop/index/index",
+        "iconPath": "image/shop.png",
+        "selectedIconPath": "image/shopClick.png",
+        "text": "市场"
+      },
+      {
+        "pagePath": "pages/cart/index/index",
+        "iconPath": "image/cart.png",
+        "selectedIconPath": "image/cartClick.png",
+        "text": "购物车"
       },
       {
         "pagePath": "pages/user/index/index",
-        "iconPath": "image/userIcon.png",
+        "iconPath": "image/user.png",
         "selectedIconPath": "image/userClick.png",
-        "text": "个人"
+        "text": "我的"
       }
     ]
   },

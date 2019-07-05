@@ -1,6 +1,6 @@
 // pages/user/myInfo/myInfo.js
-import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
-import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
+import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
 const app = getApp()
 Page({
 

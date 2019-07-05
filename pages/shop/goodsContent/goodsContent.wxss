@@ -1,0 +1,51 @@
+@import '../../../common/common.wxss';
+
+.goods-box{
+    position: relative;
+    padding: 40rpx 45rpx;
+    text-align: center;
+    color: #454552;
+    border-bottom: 30rpx solid #ededed;
+}
+.goods-box .goods-thumb{
+    width: 300rpx;
+    height: 300rpx;
+    margin: 35rpx 0 125rpx;
+}
+
+
+.goods-stock{
+    font-size: 28rpx;
+}
+.goods-title{
+    font-weight: bold;
+    font-size: 40rpx;
+    margin-bottom: 20rpx;
+}
+.goods-price{
+    font-size: 40rpx;
+    color: #DC143C;
+    margin-bottom: 20rpx;
+}
+.goods-tab-nav{
+    display: inline-block;
+    width: 33.33%;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-bottom: 1rpx solid #ededed;
+    box-sizing: border-box;
+    text-align: center;
+    color: #c7c7cb;
+}
+.goods-tab-nav.on{
+    color: #FE6544;
+    border-bottom: 5rpx solid #FE6544;
+}
+.goods-content{
+    padding: 40rpx;
+}
+.txt-decoration{
+  font-size: 32rpx;
+  color: #000;
+  text-decoration:line-through;/*文字排版--删除线*/
+}

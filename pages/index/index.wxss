@@ -1,0 +1,17 @@
+.register-view{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-view van-cell-group{
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-top: 400rpx;
+}
+.notice-view{
+  width: 100%;
+  align-self: flex-start;
+  /* align-self:stretch; */
+}

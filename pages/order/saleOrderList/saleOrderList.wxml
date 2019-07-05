@@ -1,0 +1,48 @@
+<!--pages/contract/contracts/contracts.wxml-->
+<!--pages/template/templates/templates.wxml-->
+<van-search value="{{ keyWord }}" placeholder="请输入搜索关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
+<van-tabs active="{{stateType}}" animated color="#FE6544" bind:change="changeType">
+  <van-tab title="全部" />
+  <van-tab title="未付款" />
+  <van-tab title="未接受" />
+  <van-tab title="未发货"/>
+  <van-tab title="已结束" />
+  <!-- <van-tab title="已隐藏"/> -->
+</van-tabs>
+<scroll-view class='container' scroll-y style='height:{{scrollViewHeight}}px;width:100%;' bindscrolltolower="reachBottom">
+  <view class='orders-view' wx:for="{{orderList}}">
+    <navigator url="/pages/order/orderContent/orderContent?orderId={{item.orderId}}">
+      <van-cell border="{{false}}" title="商家" icon="shop-o" value="{{item.shopName}}" />
+      <view class='card-view' wx:for="{{item.goodsList}}" wx:for-item="goods">
+        <van-card title="{{goods.goodsName}}" thumb="{{goods.goodsImageUrl}}" price="10.00" num="2">
+          <view slot="desc" class='desc-view'>
+            <view>
+              <van-tag wx:for="{{goods.tags}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom:4px;">
+                {{myTag}}
+              </van-tag>
+            </view>
+            <!-- 最多含个标签，每个标签不超过5个字 -->
+          </view>
+        </van-card>
+      </view>
+      <van-cell border="{{false}}" title="合计金额" icon="gold-coin-o" value="￥1000.00" />
+      <van-cell border="{{false}}" title="订单状态" icon="orders-o" value="待付款" />
+    </navigator>
+  </view>
+
+  <view wx:if='{{!isRefreshing}}' class="weui-loadmore">
+    <view wx:if='{{isLoadingData}}'>
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore-tips">正在加载更多...</view>
+    </view>
+    <view wx:elif='{{hasMoreData}}'>
+      <view class="weui-loadmore-tips" bindtap='reachBottom'>点击加载更多</view>
+    </view>
+    <view wx:else>
+      <view class="weui-loadmore-tips">没有更多内容啦</view>
+    </view>
+  </view>
+</scroll-view>
+
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />

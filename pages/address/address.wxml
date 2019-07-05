@@ -1,0 +1,63 @@
+<!--pages/address/address.wxml-->
+<!--pages/user/myInfo/myInfo.wxml-->
+<view class="container" style='background-color: whitesmoke'>
+<view style='width:100%'>
+<van-cell-group title="收货地址">
+    <van-field
+    label="收货人"
+    required
+    placeholder="收货人的姓名"
+    data-field="userName"
+    value="{{myInfo.userName}}"
+    bind:change="fieldInput"
+    input-align="right"
+  />
+  <van-field
+    label="手机号码"
+    required
+    data-field="telNum"
+    value="{{myInfo.telNum}}"
+    placeholder="收货人的手机号码"
+    bind:change="fieldInput"
+    input-align="right"
+  />
+  <picker mode="region" bindchange="bindRegionChange" value="{{address}}">
+  <view>
+    <van-cell title="所在地区" icon="location-o" is-link value="{{myAddress}}"/> 
+  </view>
+  </picker>
+    <van-field
+    label="详细地址"
+    required
+    data-field="detailAddress"
+    value="{{myInfo.detailAddress}}"
+    placeholder="如道路、门牌号、小区名、楼栋号等"
+    bind:change="fieldInput"
+    input-align="right"
+    type="textarea"
+    autosize
+  />
+</van-cell-group>
+</view>
+
+<view class='submit-view'>
+  <van-button bind:click="saveEdit" round disabled='{{!isEdit}}'>保存修改</van-button>
+</view>
+<!-- <van-area area-list="{{ areaList }}" /> -->
+
+<!-- <picker
+    mode="region"
+    bindchange="bindRegionChange"
+    value="{{myInfo.address}}"
+    style='width:100%;height:50px;'
+  /> -->
+  <!-- <picker mode="region" bindchange="bindRegionChange">
+    <view class="picker">
+      当前选择：
+    </view>
+  </picker> -->
+
+</view>
+<van-toast id="van-toast"/>
+<van-notify id="van-notify" />
+

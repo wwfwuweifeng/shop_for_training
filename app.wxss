@@ -3,28 +3,23 @@
 Page {
   height: 100%;
 }
+
 .container{
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
+  /* flex-wrap: wrap; */
   flex-direction: column;
 }
 
 .image-view{
-  /* background-image: url('https://img.xiaopiu.com/userImages/img51816850620660.jpg'); */
-  background-image: url('http://image.wuweifeng.top/vprBackgroundImage.jpg');
+  /* background-image: url('http://img.mp.itc.cn/q_mini,c_zoom,w_640/upload/20170511/6bf079b447c34b25ab3dfa1e6e18fac7_th.jpg'); */
+  background-image: url('http://image.wuweifeng.top/shop/indexCat.jpg');
   background-size: cover;
   /* background-size:100% 100%; */
   -moz-background-size:100% 100%;
 }
-
-.view-hover{
-  /* 设置透明度变化 */
-   opacity: 0.7;
-  /* 设置缩放效果 */
-   transform: scale(0.85,0.85);
- }
 
  .card-view{
    margin-top: 3px;

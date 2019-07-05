@@ -1,2 +1,42 @@
 <!--pages/user/index/index.wxml-->
-<text>pages/user/index/index.wxml</text>
+<view class="container">
+  <view class="userinfo">
+    <view class='wx-info'>
+      <block>
+        <!-- <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data> -->
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <!-- <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data> -->
+      </block>
+      <van-button round="true" plain wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </van-button>
+      <text wx:else class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view class='my-info'>
+      <van-icon name="contact" size='27px' color='white' bind:click="jumpToMyInfo"/>
+      <!-- <text>个人信息</text> -->
+    </view>
+  </view>
+  <view class="address-box">
+    <van-cell icon="location-o" is-link title="地址管理" link-type="navigateTo" url="/pages/address/address" />
+    <!-- <view class="address-manage">
+            <navigator url="/page/component/address/address">地址管理</navigator>
+        </view> -->
+  </view>
+
+  <view style='width:100%'>
+    <van-cell-group title="买家相关">
+      <van-cell icon="orders-o" is-link title="我购买的订单" link-type="navigateTo" url="/pages/order/buyOrderList/buyOrderList" />
+    </van-cell-group>
+    <van-cell-group title="卖家相关">
+      <van-cell icon="new-o"  is-link title="发布商品" link-type="navigateTo" url="/pages/address/address" />
+      <van-cell icon="shop-o" is-link title="我发布的商品" link-type="navigateTo" url="/pages/address/address" />
+      <van-cell icon="balance-o" is-link title="我销售的订单" link-type="navigateTo" url="/pages/order/saleOrderList/saleOrderList" />
+    </van-cell-group>
+
+    <!-- <van-cell-group title="我的内容">
+      <van-cell title="个人信息" is-link value="查看/修改" url="/pages/user/myInfo/myInfo" />
+      <van-cell title="我的模板" is-link value="全部模板" url="/pages/template/templates/templates" />
+      <van-cell title="未隐藏的合同" is-link value="全部未隐藏的合同" url="/pages/contract/contracts/contracts?filterCondition=noHide" />
+      <van-cell title="隐藏的合同" is-link value="全部已隐藏的合同" url="/pages/contract/contracts/contracts?filterCondition=hide" />
+    </van-cell-group> -->
+  </view>
+</view>

@@ -1,0 +1,17 @@
+/* pages/contract/contracts/contracts.wxss */
+.desc-text{
+  margin-top: 2px;
+  color:rgb(128, 125, 125);
+  font-size: 12px;
+  font: bold;
+}
+
+.card-view view{
+  background-color: white;
+}
+.card-view{
+  border-bottom: 1px solid whitesmoke;
+}
+.orders-view{
+  border-bottom: 13px solid whitesmoke;
+}
