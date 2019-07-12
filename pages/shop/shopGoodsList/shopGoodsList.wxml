@@ -1,29 +1,23 @@
 <!--pages/template/templates/templates.wxml-->
-<!-- 整个市场的搜索结果页也使用这个 -->
-<van-search value="{{ keyWord }}" placeholder="搜索范围为此商店" show-action bind:search="onSearch" bind:cancel="onCancel" />
+<!-- 用于显示一个商店内的商品 -->
+<van-search value="{{ keyword }}" placeholder="搜索范围为此商店" show-action bind:search="onSearch" bind:cancel="onCancel" />
 <scroll-view class='container' scroll-y style='height:{{scrollViewHeight}}px;width:100%;' bindscrolltolower="reachBottom">
 <view class="cate-title">
-  <text>小橘猫喵喵喵店商品清单</text>
+  <text>{{shopName}}</text>
 </view>
   <view class='card-view' wx:for="{{goodsList}}">
-    <van-cell wx:if="{{isSearchShop}}" border="{{false}}" title="商家" icon="shop-o" value="小橘猫喵喵喵店" is-link url="/pages/shop/findResult/findResult?shopId={{item.shopId}}" />
+    <!-- <van-cell wx:if="{{isSearchShop}}" border="{{false}}" title="商家" icon="shop-o" value="小橘猫喵喵喵店" is-link url="/pages/shop/findResult/findResult?shopId={{item.shopId}}" /> -->
     <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
-      <van-card title="{{item.goodsName}}" thumb="{{item.goodsImageUrl}}" price="10.00">
+      <van-card title="{{item.name}}" thumb="{{item.coverImage}}" price="{{item.price}}">
         <view slot="desc" class='desc-view'>
-          <text class='desc-text'>已售：{{item.saleNum}}</text>
-
+          <text class='desc-text'>已售：{{item.sellNum}}</text>
           <view>
-            <van-tag wx:for="{{item.tags}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">
+            <van-tag wx:for="{{item.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">
               {{myTag}}
             </van-tag>
           </view>
           <!-- 最多含3个标签，每个标签不超过5个字 -->
         </view>
-        <!-- <view slot="footer ">
-        <van-button round type="danger " size="mini ">删除</van-button>
-        <van-button round size="mini ">修改</van-button>
-        <van-button round size='mini'>发起签约</van-button>
-      </view> -->
       </van-card>
     </navigator>
   </view>

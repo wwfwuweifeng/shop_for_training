@@ -15,24 +15,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.loginServer();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
+  
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-    this.loginServer();
-
-
     if (app.globalData.isRegistered===1){
       wx.switchTab({
         url: 'pages/recommend/index / index'
@@ -56,10 +46,37 @@ Page({
       loadingType: 'spinner',
       mask: true
     });
-
-    setTimeout(() => {
-      Toast.fail("请先注册")
-    }, 1200)
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取token
+        wx.request({
+          url: app.globalData.api.login,
+          method: "POST",
+          header: { "Content-Type": "application/x-www-form-urlencoded" },
+          data: {
+            code: res.code
+          },
+          success: res => {
+            if (res.data.code === 200 && res.data.data.isRegister===1) {  //已注册，登录成功
+              app.globalData.token = res.data.data.token;
+              app.globalData.shopUserInfo=res.data.data;
+              Toast.success("登录成功");
+              wx.switchTab({
+                url: '/pages/recommend/index/index',
+              })
+            }else if(res.data.code===200&&res.data.data.isRegister===0){
+              app.globalData.token = res.data.data.token;
+              Toast.fail("请先注册")
+            } else {
+              Toast.fail("登录失败")
+            }
+          }
+        })
+      },
+      fail: res => {
+        Toast.fail("稍后重试")
+      }
+    })
   },
 
   fieldInput: function (e) {
@@ -75,13 +92,30 @@ Page({
       loadingType: 'spinner',
       mask: true
     });
-
-    setTimeout(() => {
-      Toast.success("注册成功"),
-      wx.switchTab({
-        url: '/pages/recommend/index/index',
-      })
-    }, 1200)
+    wx.request({
+      url: app.globalData.api.registerByCode,
+      method: "POST",
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      data: {
+        registerCode: this.data.registerCode,
+        token:app.globalData.token
+      },
+      success: res => {
+        if (res.data.code === 200 && res.data.data.isRegister === 1) {  //注册成功
+          app.globalData.token = res.data.data.token;
+          app.globalData.shopUserInfo = res.data.data;
+          Toast.success("注册成功");
+          setTimeout(
+            () => {
+              wx.switchTab({
+                url: '/pages/recommend/index/index',
+              })},1200
+          );
+        } else {
+          Toast.fail(res.data.message)
+        }
+      }
+    })
   }
 
 })

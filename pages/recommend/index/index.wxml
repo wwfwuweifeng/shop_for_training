@@ -1,47 +1,73 @@
 <!--pages/recommend/index/index.wxml-->
 <view class="main">
-<van-search value="{{ keyWord }}" placeholder="搜索范围为整个市场" show-action bind:search="onSearch" bind:cancel="onCancel" />
-  <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
-    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" width="100%" />
-      </swiper-item>
-    </block>
-  </swiper>
-
-  <!-- <view class="selected">
-        <view class="select-title"><text>热销商品</text></view>
-        <view class="select-top">
-            <view class="select-top-small">
-                <navigator url="list/list?type=1&picture=list1.png">
-                    <image src="http://image.wuweifeng.top/shop/1.png"></image>
-                </navigator>
+  <van-search value="{{ keyWord }}" placeholder="搜索范围为整个市场" show-action bind:search="onSearch" bind:cancel="onCancel" />
+  <scroll-view class='container' scroll-y style='height:{{scrollViewHeight}}px;width:100%;'>
+    <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
+      <block wx:for="{{recommendInfo.recommendImages}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="100%" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class='hotest' style='width:100%;'>
+      <view class="newest-title" style='font-weight: bold;color: red;'>
+        <text>热销商品</text>
+      </view>
+      <view class="hotest-box">
+        <!-- <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" > -->
+        <view wx:for="{{goodsList}}" wx:key="key" class="hotest-list">
+          <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+            <image src="{{item.coverImage}}"></image>
+            <!-- <image src="{{item.picture}}"></image> -->
+            <view class="hotest-text van-ellipsis">
+              <text>{{item.name}}</text>
             </view>
-            <view class="select-top-small">
-                <navigator url="list/list?type=2&picture=list2.png">
-                    <image src="http://image.wuweifeng.top/shop/2.png"></image>
-                </navigator>
+            <view class="hotest-text van-ellipsis" style='color:red'>
+              <van-row>
+                <van-col span="10">￥{{item.price}}</van-col>
+                <van-col span="14">已售{{item.sellNum}}件</van-col>
+              </van-row>
             </view>
+          </navigator>
         </view>
-        <view class="select-bottom">
-            <navigator url="list/list?type=3&picture=list3.png">
-                <image src="http://image.wuweifeng.top/shop/3.png"></image>
-            </navigator>
-        </view>
-    </view> -->
-  <view class="newest">
-        <view class="newest-title" style='font-weight: bold;'><text>热销商品</text></view>
-        <!-- <view wx:for="{{goodsList}}" wx:key="key" class="newest-list" style='margin-top: 3px;'>
-    <van-card num="2" price="{{item.sellPrice}}" desc="描述信息" title="{{item.name}}" thumb="{{ item.picture }}" />
-  </view> -->
-        <view class="newest-box">
-            <view wx:for="{{goodsList}}" wx:key="key" class="newest-list" >
-                <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
-                    <image src="{{item.picture}}"></image>
-                    <view class="newest-text van-ellipsis" style='font-weight: bold;'><text>{{item.name}}</text></view>
-                    <view class="newest-text van-ellipsis" style='font-weight: bold;color:red'><text>￥{{item.sellPrice}}</text></view>
-                </navigator>
+      </view>
+    <view class="newest">
+      <view class="newest-title" style='font-weight: bold;color: #FE6544;'>
+        <text>最近新品</text>
+      </view>
+      <view class="newest-box">
+        <!-- <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" > -->
+        <view wx:for="{{goodsList}}" wx:key="key" class="newest-list">
+          <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+            <image src="{{item.coverImage}}"></image>
+            <!-- <image src="{{item.picture}}"></image> -->
+            <view class="newest-text van-ellipsis">
+              <text>{{item.name}}</text>
             </view>
+            <view class="newest-text van-ellipsis" style='font-weight: bold;color:#FE6544;'>
+              <text>￥{{item.price}}</text>
+            </view>
+          </navigator>
         </view>
+      </view>
     </view>
+
+
+      <!-- <view class='card-view' wx:for="{{goodsList}}">
+    <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+      <van-card title="{{item.name}}" thumb="{{item.coverImage}}" price="{{item.price}}">
+        <view slot="desc" class='desc-view'>
+          <text class='desc-text'>已售：{{item.sellNum}}</text>
+          <view>
+            <van-tag wx:for="{{item.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">
+              {{myTag}}
+            </van-tag>
+          </view>
+        </view>
+      </van-card>
+    </navigator>
+  </view> -->
+    </view>
+  </scroll-view>
 </view>
+<van-toast id="van-toast" />

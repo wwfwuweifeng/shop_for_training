@@ -13,10 +13,10 @@
     "pages/order/orderContent/orderContent",
     "pages/order/buyOrderList/buyOrderList",
     "pages/order/saleOrderList/saleOrderList",
-    "pages/shop/findResult/findResult"
+    "pages/shop/shopGoodsList/shopGoodsList"
   ],
   "window": {
-    "navigationBarTitleText": "小招猫市场",
+    "navigationBarTitleText": "小招喵市场",
     "navigationBarTextStyle": "white",
     "navigationBarBackgroundColor": "#FE6544",
     "backgroundColor": "#eeeeee"
