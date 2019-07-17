@@ -1,26 +1,33 @@
 <view class="main">
   <navigator url="/pages/address/address">
     <view wx:if="{{hasAddress}}" class="orders-address">
-      <text class="orders-address-name">收货人: {{address.name}}</text>
-      <text class="orders-address-phone">电话: {{address.phone}}</text>
-      <view class="orders-address-detail">{{address.detail}}</view>
+      <text class="orders-address-name">收货人: {{userPersonalInfo.receiverName}}</text>
+      <text class="orders-address-phone">电话: {{userPersonalInfo.receiverTel}}</text>
+      <view class="orders-address-detail">{{userPersonalInfo.receiverAddressSimple}}{{userPersonalInfo.receiverAddressDetail}}</view>
     </view>
     <view wx:else class="orders-no-address">添加收货地址</view>
   </navigator>
 
   <view class="orders-box">
-    <view wx:for="{{orders}}" wx:key="index" class='orders-list'>
-      <image class="orders-thumb" src="{{item.image}}"></image>
-      <view class="orders-pro-name">{{item.title}}</view>
-      <view class="orders-pro-price"><text style='color:red;'>￥{{item.price}}</text>  ×  {{item.num}}
+          <view wx:for="{{carts}}">
+        <van-cell border="{{false}}" title="商家" icon="shop-o" value="{{item.shopName}}" />
+        <view class='card-view' wx:for="{{item.list}}" wx:for-item="goods">
+          <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.price}}" thumb-link="/pages/shop/goodsContent/goodsContent?goodsId={{goods.goodsId}}" num="{{goods.buyNum}}">
+            <view slot="desc" class='desc-view'>
+              <view style="margin-bottom: 8px;">
+                <van-tag wx:for="{{goods.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom:4px;">
+                  {{myTag}}
+                </van-tag>
+              </view>
+              <!-- 最多含个标签，每个标签不超过5个字 -->
+            </view>
+          </van-card>
+        </view>
       </view>
-      <!-- <view class="orders-count-num">数量 ×{{item.num}}</view> -->
-      <!-- <van-card num="{{item.num}}" price="{{item.price}}"  title="{{item.title}}" thumb="{{item.image}}" /> -->
-    </view>
   </view>
 
   <view class="orders-footer">
-    <van-submit-bar loading="{{false}}" price="{{ total }}" button-type="warning" button-text="提交订单" bind:submit="submitOrder" />
+    <van-submit-bar loading="{{false}}" price="{{totalPrice}}" button-type="warning" button-text="提交订单" bind:submit="submitOrder" />
     <!-- <view class="orders-footer-total">付款合计：￥{{total}}</view>
         <view class="orders-footer-btn" bindtap="toOrder">{{btnText}}</view> -->
   </view>

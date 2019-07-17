@@ -57,11 +57,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   reachBottom: function() {
-    if (this.data.isShowSearchData) {
-      this.loadMoreSearchData();
-    } else {
-      this.loadMoreListData();
-    }
+    this.loadMoreListData();
   },
 
   //加载列表数据
@@ -124,6 +120,9 @@ Page({
       Toast("正在加载数据，请稍后再试")
     } else {
       this.setData({
+        goodsList: [],
+        nowPage: 1,
+        nextPage: 1,
         keyword: e.detail
       })
       this.loadSearchData();
@@ -134,7 +133,10 @@ Page({
       Toast("正在加载数据，请稍后再试")
     } else {
       this.setData({
-        keyword:""
+        keyword:"",
+        goodsList: [],
+        nowPage: 1,
+        nextPage: 1
       })
       this.loadListData();
     }

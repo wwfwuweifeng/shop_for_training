@@ -13,7 +13,8 @@
     "pages/order/orderContent/orderContent",
     "pages/order/buyOrderList/buyOrderList",
     "pages/order/saleOrderList/saleOrderList",
-    "pages/shop/shopGoodsList/shopGoodsList"
+    "pages/shop/shopGoodsList/shopGoodsList",
+    "pages/cart/test/test"
   ],
   "window": {
     "navigationBarTitleText": "小招喵市场",
@@ -49,7 +50,8 @@
     "van-notice-bar": "/miniprogram_npm/vant-weapp/notice-bar/index",
     "van-submit-bar": "/miniprogram_npm/vant-weapp/submit-bar/index",
     "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
-    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index"
+    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index",
+    "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index"
   },
   "tabBar": {
     "color": "#5f616c",
@@ -70,7 +72,7 @@
         "text": "市场"
       },
       {
-        "pagePath": "pages/cart/index/index",
+        "pagePath": "pages/cart/test/test",
         "iconPath": "image/cart.png",
         "selectedIconPath": "image/cartClick.png",
         "text": "购物车"

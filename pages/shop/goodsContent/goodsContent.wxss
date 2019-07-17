@@ -5,12 +5,12 @@
     padding: 40rpx 45rpx;
     text-align: center;
     color: #454552;
-    border-bottom: 30rpx solid #ededed;
+    border-bottom: 20rpx solid #ededed;
 }
 .goods-box .goods-thumb{
-    width: 300rpx;
-    height: 300rpx;
-    margin: 35rpx 0 125rpx;
+    width: 600rpx;
+    height: 450rpx;
+    margin: 15rpx 0 15rpx;
 }
 
 
@@ -18,18 +18,19 @@
     font-size: 28rpx;
 }
 .goods-title{
+    margin-top: 5rpx;
     font-weight: bold;
     font-size: 40rpx;
-    margin-bottom: 20rpx;
+    margin-bottom: 10rpx;
 }
 .goods-price{
     font-size: 40rpx;
     color: #DC143C;
-    margin-bottom: 20rpx;
+    margin-bottom: 10rpx;
 }
 .goods-tab-nav{
     display: inline-block;
-    width: 33.33%;
+    width: 50%;
     height: 90rpx;
     line-height: 90rpx;
     border-bottom: 1rpx solid #ededed;
@@ -44,6 +45,7 @@
 .goods-content{
     padding: 40rpx;
 }
+
 .txt-decoration{
   font-size: 32rpx;
   color: #000;

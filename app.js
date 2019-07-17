@@ -33,6 +33,7 @@ App({
     userInfo: null, //微信官方返回的用户信息
     shopUserInfo:null,  //自己的应用服务器返回的用户信息
     token:null,
+    cartsForOrder:[],
     api: {
       //用户模块
       login: '/user/login',  //登录并获取sessionId,

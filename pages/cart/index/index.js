@@ -6,28 +6,27 @@ Page({
     hasList: false,          // 列表是否有数据
     totalPrice: 0,           // 总价，初始为0
     selectAllStatus: true,    // 全选状态，默认全选
-    obj: {
-      name: "hello"
-    }
   },
   onShow() {
-    var self = this;
+    // var self = this;
 
     
-    // var localCarts = wx.getStorageSync('carts');
-    var localCarts = app.globalData.cartList;
+    // // var localCarts = wx.getStorageSync('carts');
+    // var localCarts = app.globalData.cartList;
 
-    // console.log(localCarts);
-    this.setData({
-      carts: localCarts,
-      hasList: false
-    });
-    if (localCarts.length > 0) {
-      self.setData({
-        hasList: true
-      });
-      self.getTotalPrice();
-    }
+    // // console.log(localCarts);
+    // this.setData({
+    //   carts: localCarts,
+    //   hasList: false
+    // });
+    // if (localCarts.length > 0) {
+    //   self.setData({
+    //     hasList: true
+    //   });
+    //   self.getTotalPrice();
+    // }
+
+    this.getCarts();
 
   },
   /**
@@ -144,6 +143,26 @@ Page({
       carts: carts,
       totalPrice: total.toFixed(2)
     });
+  },
+
+  /**
+   * 获取购物车列表
+   */
+  getCarts(){
+    wx.request({
+      url: app.globalData.api.getGoodsListByCart,
+      data:{
+        token:app.globalData.token
+      },
+      success:res=>{
+        if(res.data.code==200){
+          this.setData({
+            carts:res.data.data,
+            hasList: res.data.data.length>0?true:false
+          })
+        }
+      }
+    })
   }
 
 })

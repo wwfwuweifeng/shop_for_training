@@ -14,10 +14,10 @@
         <text>热销商品</text>
       </view>
       <view class="hotest-box">
-        <!-- <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" > -->
-        <view wx:for="{{goodsList}}" wx:key="key" class="hotest-list">
+        <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="hotest-list" >
+        <!-- <view wx:for="{{goodsList}}" wx:key="key" class="hotest-list"> -->
           <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
-            <image src="{{item.coverImage}}"></image>
+            <image src="http://image.wuweifeng.top/shop/{{item.coverImage}}"></image>
             <!-- <image src="{{item.picture}}"></image> -->
             <view class="hotest-text van-ellipsis">
               <text>{{item.name}}</text>
@@ -36,10 +36,10 @@
         <text>最近新品</text>
       </view>
       <view class="newest-box">
-        <!-- <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" > -->
-        <view wx:for="{{goodsList}}" wx:key="key" class="newest-list">
+        <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" >
+        <!-- <view wx:for="{{goodsList}}" wx:key="key" class="newest-list"> -->
           <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
-            <image src="{{item.coverImage}}"></image>
+            <image src="http://image.wuweifeng.top/shop/{{item.coverImage}}"></image>
             <!-- <image src="{{item.picture}}"></image> -->
             <view class="newest-text van-ellipsis">
               <text>{{item.name}}</text>

@@ -45,7 +45,7 @@ Page({
       Toast("搜索关键词不能为空")
     }else{
       wx.navigateTo({
-        url: '/pages/shop/findResult/findResult?keyword={{e.detail}}',
+        url: '/pages/shop/goodsList/goodsList?keyword='+e.detail,
       })
     }
   },
