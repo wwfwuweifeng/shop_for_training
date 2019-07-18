@@ -16,7 +16,7 @@
     </view>
   </view>
   <view class="address-box">
-    <van-cell icon="location-o" is-link title="地址管理" link-type="navigateTo" url="/pages/address/address" />
+    <van-cell icon="location-o" is-link title="地址管理" link-type="navigateTo" url="/pages/user/address/address" />
     <!-- <view class="address-manage">
             <navigator url="/page/component/address/address">地址管理</navigator>
         </view> -->

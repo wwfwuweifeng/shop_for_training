@@ -9,9 +9,13 @@ Page({
     curIndex: 0,
     goodsId:"",
     comeFromShop:0,
-    isOnAdd:false
+    isOnAdd:false,
+    sumPrice:0,
+    show:false
   },
-
+  onShow(){
+    app.globalData.cartsForOrder = []
+  },
   onLoad: function (options) {
     var sysInfo = wx.getSystemInfoSync();
     var tempHeight = sysInfo.windowHeight - 50;
@@ -20,7 +24,6 @@ Page({
       goodsId:options.goodsId,
       comeFromShop: typeof (options.comeFromShop) == "undefined" ? 0 : options.comeFromShop
     });
-
     wx.request({
       url: app.globalData.api.getGoodsDetailByBuyer,
       data: {
@@ -31,7 +34,9 @@ Page({
         if (res.data.code === 200) {
           this.setData({
             goodsInfo:res.data.data,
-            goods: res.data.data.goods
+            goods: res.data.data.goods,
+            ["goods.buyNum"]:1,
+            sumPrice:res.data.data.goods.price  //单位分
           })
         } else {
           Toast.fail(res.data.message);
@@ -75,6 +80,29 @@ Page({
     })
   },
   goToBuy(){
-    app.goodsListForOrder
+    this.setData({show:true})
+  },
+
+  addNum() {
+    let sumPrice=this.data.sumPrice+this.data.goods.price;
+    let buyNum=this.data.goods.buyNum+1
+    this.setData({ sumPrice: sumPrice, ["goods.buyNum"]: buyNum})
+  },
+
+  subNum() {
+    let sumPrice = this.data.sumPrice - this.data.goods.price;
+    let buyNum = this.data.goods.buyNum - 1
+    this.setData({ sumPrice: sumPrice, ["goods.buyNum"]: buyNum })
+  },
+  onCancel(){
+    this.setData({show:false})
+  },
+  goToSubmit(){
+    let cart={shopId:this.data.goods.shopId,shopName:this.data.goods.shopName,list:[]}
+    cart.list.push(this.data.goods)
+    app.globalData.cartsForOrder.push(cart);
+    wx.navigateTo({
+      url: '/pages/order/submitOrder/submitOrder?sumPrice=' + this.data.sumPrice ,//单位是分
+    })
   }
 })

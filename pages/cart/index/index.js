@@ -1,168 +1,233 @@
-// page/component/new-pages/cart/cart.js
-const app=getApp()
+// pages/cart/test/test.js
+import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
+const app = getApp()
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    carts: [],               // 购物车列表
-    hasList: false,          // 列表是否有数据
-    totalPrice: 0,           // 总价，初始为0
-    selectAllStatus: true,    // 全选状态，默认全选
+    carts: [],
+    hasList: false,
+    selectAllStatus: false,
+    sumPrice: 0,
+    totalPriceStr: "0.00"
   },
-  onShow() {
-    // var self = this;
 
-    
-    // // var localCarts = wx.getStorageSync('carts');
-    // var localCarts = app.globalData.cartList;
-
-    // // console.log(localCarts);
-    // this.setData({
-    //   carts: localCarts,
-    //   hasList: false
-    // });
-    // if (localCarts.length > 0) {
-    //   self.setData({
-    //     hasList: true
-    //   });
-    //   self.getTotalPrice();
-    // }
-
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     this.getCarts();
-
+    app.globalData.cartsForOrder = [];
   },
-  /**
-   * 当前商品选中事件
-   */
-  selectList(e) {
-    const index = e.currentTarget.dataset.index;
-    let carts = this.data.carts;
-    const selected = carts[index].selected;
-    carts[index].selected = !selected;
-    let isAllSelect = this.data.selectAllStatus && !selected
-    this.setData({
-      carts: carts,
-      selectAllStatus:isAllSelect
-    });
-    this.getTotalPrice();
-  },
+  selectGoods(event) {
 
-  /**
-   * 删除购物车当前商品
-   */
-  deleteList(e) {
-    const index = e.currentTarget.dataset.index;
-    let carts = this.data.carts;
-    carts.splice(index, 1);
-    this.setData({
-      carts: carts
-    });
-    if (!carts.length) {
-      this.setData({
-        hasList: false
-      });
-    } else {
-      this.getTotalPrice();
-    }
-    wx.setStorageSync('carts', carts);
-  },
+    let goodsId = event.target.dataset.goods_id;
+    let checked = event.target.dataset.checked;
+    // console.log(checked);
+    // console.log(goodsId);
+    let newCarts = this.data.carts;
+    let sumPrice = this.data.sumPrice;
+    for (let cart of newCarts) {
+      // console.log(cart.shopName);
+      for (let goods of cart.list) {
+        // console.log(goods.goodsId)
+        if (goodsId === goods.goodsId) {
+          goods.checked = checked;
+          if (checked === "1") { //选中
+            sumPrice = sumPrice + (goods.price * goods.buyNum) / 100;
 
-  /**
-   * 购物车全选事件
-   */
-  selectAll(e) {
-    let selectAllStatus = this.data.selectAllStatus;
-    selectAllStatus = !selectAllStatus;
-    let carts = this.data.carts;
-
-    for (let i = 0; i < carts.length; i++) {
-      carts[i].selected = selectAllStatus;
-    }
-    this.setData({
-      selectAllStatus: selectAllStatus,
-      carts: carts
-    });
-    this.getTotalPrice();
-  },
-
-  /**
-   * 绑定加数量事件
-   */
-  addCount(e) {
-    const index = e.currentTarget.dataset.index;
-    let carts = this.data.carts;
-    let num = carts[index].num;
-    //判断是否小于等于库存
-    if (num + 1 > carts[index].inventory) {
-      wx.showModal({
-        title: '提示',
-        content: '已达到最大库存',
-        showCancel: false
-      })
-      return;
-    }
-    num = num + 1;
-    carts[index].num = num;
-    this.setData({
-      carts: carts
-    });
-    wx.setStorageSync('carts', carts);
-    this.getTotalPrice();
-  },
-
-  /**
-   * 绑定减数量事件
-   */
-  minusCount(e) {
-    const index = e.currentTarget.dataset.index;
-    const obj = e.currentTarget.dataset.obj;
-    let carts = this.data.carts;
-    let num = carts[index].num;
-    if (num <= 1) {
-      return false;
-    }
-    num = num - 1;
-    carts[index].num = num;
-    this.setData({
-      carts: carts
-    });
-    wx.setStorageSync('carts', carts);
-    this.getTotalPrice();
-  },
-
-  /**
-   * 计算总价
-   */
-  getTotalPrice() {
-    let carts = this.data.carts;                  // 获取购物车列表
-    let total = 0;
-    for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
-      if (carts[i].selected) {                     // 判断选中才会计算价格
-        total += carts[i].num * carts[i].price;   // 所有价格加起来
+          } else {
+            sumPrice = sumPrice - (goods.price * goods.buyNum) / 100;
+          }
+          this.setData({
+            totalPriceStr: sumPrice.toFixed(2),
+            sumPrice: sumPrice,
+            carts: newCarts,
+            selectAllStatus: checked == 0 ? false : this.data.selectAllStatus
+          })
+          return;
+        }
       }
     }
-    this.setData({                                // 最后赋值到data中渲染到页面
-      carts: carts,
-      totalPrice: total.toFixed(2)
-    });
+    Toast.fail("操作非法");
   },
 
+  delGoodsFromCart(event) {
+    var goodsId = event.target.dataset.goods_id;
+    let newCarts = this.data.carts;
+    let sumPrice = this.data.sumPrice;
+    wx.request({
+      url: app.globalData.api.delGoodsFromCart,
+      data: {
+        token: app.globalData.token,
+        goodsId: goodsId
+      },
+      method: "POST",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: res => {
+        if (res.data.code === 200) {
+          for (let cart of newCarts) {
+            // console.log(cart.shopName);
+            for (let i = 0; i < cart.list.length; i++) {
+              // console.log(goodsId)
+              if (goodsId === cart.list[i].goodsId) {
+                if (cart.list[i].checked === "1") { //删除前处于选中状态
+                  sumPrice = sumPrice - (cart.list[i].price * cart.list[i].buyNum) / 100;
+                }
+                cart.list.splice(i, 1)
+                if (newCarts.length === 1 && cart.list.length === 0) {
+                  this.setData({
+                    carts: newCarts,
+                    hasList: false,
+                    totalPriceStr: sumPrice.toFixed(2),
+                    sumPrice: sumPrice
+                  })
+                } else {
+                  this.setData({
+                    carts: newCarts,
+                    totalPriceStr: sumPrice.toFixed(2),
+                    sumPrice: sumPrice
+                  })
+                }
+                return;
+              }
+            }
+          }
+          Toast.fail("操作非法");
+
+        } else {
+          Toast.fail(res.data.message);
+        }
+      }
+    })
+  },
   /**
    * 获取购物车列表
    */
-  getCarts(){
+  getCarts() {
     wx.request({
       url: app.globalData.api.getGoodsListByCart,
-      data:{
-        token:app.globalData.token
+      data: {
+        token: app.globalData.token
       },
-      success:res=>{
-        if(res.data.code==200){
+      success: res => {
+        if (res.data.code == 200) {
+          let carts = res.data.data;
+          for (let cart of carts) {
+            // console.log(cart.shopName);
+            for (let goods of cart.list) {
+              // console.log(goods.goodsId)
+              goods.checked = "0";
+              goods.buyNum = 1;
+            }
+          }
           this.setData({
-            carts:res.data.data,
-            hasList: res.data.data.length>0?true:false
+            carts: carts,
+            hasList: res.data.data.length > 0 ? true : false
           })
         }
       }
     })
-  }
+  },
 
+  selectAll() {
+    let sumPrice = 0;
+    let newCarts = this.data.carts;
+    for (let cart of newCarts) {
+      // console.log(cart.shopName);
+      for (let goods of cart.list) {
+        // console.log(goods.goodsId)
+        if (this.data.selectAllStatus) {
+          //原本处于全选状态，此时应该是取消全选
+          goods.checked = "0";
+        } else {
+          goods.checked = "1";
+          sumPrice = (goods.price * goods.buyNum) / 100 + sumPrice;
+        }
+      }
+    }
+    this.setData({
+      carts: newCarts,
+      totalPriceStr: sumPrice.toFixed(2),
+      sumPrice: sumPrice,
+      selectAllStatus: !this.data.selectAllStatus
+    })
+  },
+
+  addNum(event) {
+    let goodsId = event.target.dataset.goods_id;
+    let newCarts = this.data.carts;
+    let sumPrice = this.data.sumPrice;
+    for (let cart of newCarts) {
+      // console.log(cart.shopName);
+      for (let goods of cart.list) {
+        // console.log(goods.goodsId)
+        if (goodsId === goods.goodsId) {
+          goods.buyNum += 1
+          if (goods.checked == 1) {
+            sumPrice = sumPrice + goods.price / 100;
+          }
+          this.setData({
+            totalPriceStr: sumPrice.toFixed(2),
+            sumPrice: sumPrice,
+            carts: newCarts
+          })
+          return;
+        }
+      }
+    }
+  },
+
+  subNum(event) {
+    let goodsId = event.target.dataset.goods_id;
+    let newCarts = this.data.carts;
+    let sumPrice = this.data.sumPrice;
+    for (let cart of newCarts) {
+      // console.log(cart.shopName);
+      for (let goods of cart.list) {
+        // console.log(goods.goodsId)
+        if (goodsId === goods.goodsId) {
+          goods.buyNum -= 1
+          if (goods.checked == 1) {
+            sumPrice = sumPrice - goods.price / 100;
+          }
+          this.setData({
+            totalPriceStr: sumPrice.toFixed(2),
+            sumPrice: sumPrice,
+            carts: newCarts
+          })
+          return;
+        }
+      }
+    }
+  },
+  goToSubmit() {
+    let _obj = JSON.stringify(this.data.carts);
+    let newCarts = JSON.parse(_obj);
+    // let newCarts = this.data.carts;
+    for (let cart of newCarts) {
+      // console.log(cart.shopName);
+      for (let i = 0; i < cart.list.length; i++) {
+        // console.log(goodsId)
+        if (cart.list[i].checked === "0") {
+          cart.list.splice(i, 1);
+          i -= 1;
+        }
+      }
+      if (cart.list.length > 0) {
+        app.globalData.cartsForOrder.push(cart)
+      }
+    }
+    if (app.globalData.cartsForOrder.length > 0) {
+      wx.navigateTo({
+        url: '/pages/order/submitOrder/submitOrder?sumPrice=' + this.data.sumPrice * 100,//因为后面提交订单栏的单位是分
+      })
+    } else {
+      Toast.fail("请选择要购买的商品")
+    }
+  }
 })

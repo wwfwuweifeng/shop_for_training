@@ -8,19 +8,10 @@ Page({
   },
 
   onShow() {
-    // const self = this;
-    // this.setData({
-    //   address: { phone: "17862705895", name:"吴小锋",detail:"上海市浦东新区云雅路555弄31号401室"},
-    //   hasAddress: true
-    // })
-    // wx.getStorage({
-    //   key: 'address',
-    //   success(res) {
-    //     self.setData({
-    //       address: res.data,
-    //     })
-    //   }
-    // })
+    this.setData({
+      userPersonalInfo: app.globalData.shopUserInfo.userPersonalInfo,
+      hasAddress: app.globalData.shopUserInfo.userPersonalInfo.haveReceiverAddress == 1
+    })
   },
 
   onLoad: function (options) {
@@ -28,8 +19,6 @@ Page({
     this.setData({
       carts: app.globalData.cartsForOrder,
       totalPrice: typeof (options.sumPrice) == "undefined" ? 0 : parseInt(options.sumPrice),
-      userPersonalInfo: app.globalData.shopUserInfo.userPersonalInfo,
-      hasAddress: app.globalData.shopUserInfo.userPersonalInfo.haveReceiverAddress==1
     })
   },
 

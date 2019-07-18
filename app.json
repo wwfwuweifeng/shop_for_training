@@ -9,12 +9,12 @@
     "pages/shop/index/index",
     "pages/shop/goodsList/goodsList",
     "pages/shop/goodsContent/goodsContent",
-    "pages/address/address",
     "pages/order/orderContent/orderContent",
     "pages/order/buyOrderList/buyOrderList",
     "pages/order/saleOrderList/saleOrderList",
     "pages/shop/shopGoodsList/shopGoodsList",
-    "pages/cart/test/test"
+    "pages/cart/test/test",
+    "pages/user/address/address"
   ],
   "window": {
     "navigationBarTitleText": "小招喵市场",
@@ -72,7 +72,7 @@
         "text": "市场"
       },
       {
-        "pagePath": "pages/cart/test/test",
+        "pagePath": "pages/cart/index/index",
         "iconPath": "image/cart.png",
         "selectedIconPath": "image/cartClick.png",
         "text": "购物车"

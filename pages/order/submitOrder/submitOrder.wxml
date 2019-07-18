@@ -1,5 +1,5 @@
 <view class="main">
-  <navigator url="/pages/address/address">
+  <navigator url="/pages/user/address/address">
     <view wx:if="{{hasAddress}}" class="orders-address">
       <text class="orders-address-name">收货人: {{userPersonalInfo.receiverName}}</text>
       <text class="orders-address-phone">电话: {{userPersonalInfo.receiverTel}}</text>

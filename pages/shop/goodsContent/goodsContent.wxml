@@ -5,7 +5,7 @@
     <view class="goods-price">￥{{goods.price}}</view>
     <view class="goods-stock">已售{{goods.sellNum}}</view>
   </view>
-  <van-cell wx:if="{{comeFromShop!=1}}" title="{{goods.shopName}}" icon="shop-o" value="进店逛逛" is-link url="/pages/shop/shopGoodsList/shopGoodsList?shopId={{item.shopId}}&shopName={{item.shopName}}" />
+  <van-cell wx:if="{{comeFromShop!=1}}" title="{{goods.shopName}}" icon="shop-o" value="进店逛逛" is-link url="/pages/shop/shopGoodsList/shopGoodsList?shopId={{goods.shopId}}&shopName={{goods.shopName}}" />
   <view class="goods-tab-box">
     <view class="goods-tab-nav {{curIndex === 0 ?'on':''}}" bindtap="bindTap" data-index="0">商品详情</view>
     <view class="goods-tab-nav {{curIndex === 1 ?'on':''}}" bindtap="bindTap" data-index="1">产品参数</view>
@@ -13,12 +13,12 @@
     <view class="goods-content">
       <view wx:if="{{curIndex === 0}}">{{goods.detail}}</view>
       <view wx:if="{{curIndex === 1}}">
-      <view wx:for="{{goodsInfo.paramList}}" style='margin-bottom: 3px;'>
-      <van-row>
-          <van-col span="7" style="text-align:right;">{{item.paramName}}：</van-col>
-          <van-col offset="2" span="15" style="color:gray;">{{item.paramValue}}</van-col>
-        </van-row>
-      </view>
+        <view wx:for="{{goodsInfo.paramList}}" style='margin-bottom: 3px;'>
+          <van-row>
+            <van-col span="7" style="text-align:right;">{{item.paramName}}：</van-col>
+            <van-col offset="2" span="15" style="color:gray;">{{item.paramValue}}</van-col>
+          </van-row>
+        </view>
       </view>
     </view>
   </view>
@@ -34,3 +34,10 @@
   </van-goods-action>
 </view>
 <van-toast id="van-toast" />
+<van-popup show="{{ show }}" position="bottom" bind:close="onCancel">
+  <view class='selectNum'>
+    <text style='margin-bottom: 5px;color: #454552;'>选择数量</text>
+    <van-stepper disable-input value="{{ goods.buyNum }}" min="{{1}}" max="{{goods.remainNum}}" bind:plus="addNum" bind:minus="subNum" data-goods_id="{{goods.goodsId}}" />
+    <van-button round bind:click="goToSubmit" disabled="{{goodsInfo.allowBuy!=1}}">前往下单</van-button>
+  </view>
+</van-popup>
