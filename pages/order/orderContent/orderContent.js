@@ -10,9 +10,9 @@ Page({
   data: {
     active: 0,
     scrollViewHeight: 0,
-    userInfoTitle: "",
-    goodsList:[],
-    sumMoney:100.35
+    orderId:"",
+    role:0,
+    orderInfo:{},
   },
 
   /**
@@ -23,27 +23,10 @@ Page({
     var tempHeight = sysInfo.windowHeight - 50;
     this.setData({
       scrollViewHeight: tempHeight,
-      goodsList: app.globalData.goodsList.list,
-      goodsSteps: [
-        {
-          text: '等待揽件',
-        },
-        {
-          text: '已发货',
-          desc: '2019.01.01 12:05:00'
-        },
-        {
-          text: '已付款',
-          desc: '2019.01.01 12:02:00'
-        }, 
-        {
-          text: '已下单',
-          desc: '2019.01.01 12:00:00'
-        }
-      ]
-      // contractId:"1130 6973 3022 0607"
-    });
-    // this.loadContractInfo(false);
+      orderId: options.orderId,
+      role: options.role
+  });
+    this.loadOrderInfo();
   },
 
 
@@ -51,10 +34,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.loadContractInfo(true)
+    this.loadOrderInfo(true)
   },
 
-  //立即付款
   onClickMainAction: function () {
     
   },
@@ -63,22 +45,23 @@ Page({
   onClickCancel: function () {
     Dialog.confirm({
       title: "请确认",
-      message: '是否取消该合同',
+      message: '是否取消该订单',
       asyncClose: true
     }).then(() => {
       wx.request({
-        url: app.globalData.api.cOperateCancel,
+        url: app.globalData.api.cancelOrder,
         method: "POST",
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         data: {
           token: app.globalData.token,
-          contractId: this.data.contractId
+          orderId: this.data.orderId,
+          role:this.data.role
         },
         success: res => {
           if (res.data.code === 200) { //响应成功
             Toast.success("取消成功")
             this.setData({
-              contractInfo: res.data.data
+              orderInfo: res.data.data
             })
           } else { //响应失败
             Toast.fail(res.data.message);
@@ -100,19 +83,18 @@ Page({
   },
 
   //加载合同信息
-  loadContractInfo: function (showTips) {
+  loadOrderInfo: function (showTips) {
     wx.request({
-      url: app.globalData.api.cInfoInfoContent,
+      url: app.globalData.api.getOrderDetail,
       data: {
         token: app.globalData.token,
-        contractId: this.data.contractId
+        orderId: this.data.orderId,
+        role:this.data.role
       },
       success: res => {
         if (res.data.code === 200) { //响应成功
           this.setData({
-            contractInfo: res.data.data,
-            buttonMsgForHide: res.data.data.buttonMsgForHide,
-            buttonMsgForRescind: res.data.data.buttonMsgForRescind
+            orderInfo: res.data.data,
           })
           if (showTips) {
             Toast.success("刷新成功")
@@ -129,16 +111,5 @@ Page({
         wx.stopPullDownRefresh();
       }
     })
-  },
-  seeContract: function () {
-    wx.navigateTo({
-      url: "/pages/contract/fileContent/fileContent?contractId=" + this.data.contractId
-    })
-  },
-  clickConfirm() {
-    this.setData({ isShowUserInfo: false })
   }
-
-
-
 })

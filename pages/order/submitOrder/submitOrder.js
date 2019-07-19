@@ -1,3 +1,4 @@
+import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
 const app = getApp()
 Page({
   data: {
@@ -5,6 +6,7 @@ Page({
     hasAddress: false,
     totalPrice: 0,
     carts: [],
+    byBuy:0   //是否是通过商品页点击购买进入的
   },
 
   onShow() {
@@ -19,37 +21,69 @@ Page({
     this.setData({
       carts: app.globalData.cartsForOrder,
       totalPrice: typeof (options.sumPrice) == "undefined" ? 0 : parseInt(options.sumPrice),
+      byBuy: typeof (options.byBuy) == "undefined" ? 0 : 1,
     })
   },
 
+  submitOrder(){
+    console.log(this.data.byBuy)
+    if(this.data.byBuy==1){
+      this.submitOrderByBuy();
+    }else{
+      this.submitOrderByCart();
+    }
+  },
   
-  submitOrder() {
-    wx.redirectTo({
-      url: '/pages/order/orderContent/orderContent',
+  submitOrderByCart() {
+    let buyGoodsList=[]
+    for(let cart of this.data.carts){
+      for(let goods of cart.list){
+        let oneCart = { goodsId: goods.goodsId, shopId: goods.shopId, num:goods.buyNum}
+        buyGoodsList.push(oneCart);
+      }
+    }
+    wx.request({
+      url: app.globalData.api.submitOrderByCart,
+      method:"POST",
+      header: { "Content-Type": "application/json" },
+      data:{
+        token:app.globalData.token,
+        receiverPeople: this.data.userPersonalInfo.receiverName + "  " + this.data.userPersonalInfo.receiverTel,
+        receiverAddress: this.data.userPersonalInfo.receiverAddressSimple + this.data.userPersonalInfo.receiverAddressDetail,
+        cartList: buyGoodsList,
+        // cart:{}
+      },
+      success:res=>{
+        if(res.data.code==200){
+          console.log(res.data.data)
+        }else{
+          Toast.fail(res.data.message)
+        }
+      }
     })
-    // var self = this;
-    // var sn = wx.getStorageSync('sn');
-    // if (sn == '') {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '您还未登录,请先登录后完成操作！',
-    //     showCancel: false,
-    //     complete() {
-    //       wx.switchTab({
-    //         url: '/page/component/user/user'
-    //       })
-    //     }
-    //   })
-    //   return;
-    // }
-    // if (this.data.address.detail == null) {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '地址不能为空！',
-    //     showCancel: false
-    //   })
-    //   return;
-    // }
-
+  },
+  submitOrderByBuy(){
+    let goods=this.data.carts[0].list[0];
+    let oneCart = { goodsId: goods.goodsId, shopId: goods.shopId, num: goods.buyNum }
+    wx.request({
+      url: app.globalData.api.submitOrderByBuy,
+      method: "POST",
+      // header: { "Content-Type": "application/x-www-form-urlencoded" },
+      header: { "Content-Type": "application/json" },
+      data: {
+        token: app.globalData.token,
+        receiverPeople: this.data.userPersonalInfo.receiverName + "  " + this.data.userPersonalInfo.receiverTel,
+        receiverAddress: this.data.userPersonalInfo.receiverAddressSimple + this.data.userPersonalInfo.receiverAddressDetail,
+        cart: oneCart,
+        // cartList:[]
+      },
+      success: res => {
+        if (res.data.code == 200) {
+          console.log(res.data.data)
+        } else {
+          Toast.fail(res.data.message)
+        }
+      }
+    })
   }
 })

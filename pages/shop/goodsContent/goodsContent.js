@@ -102,7 +102,7 @@ Page({
     cart.list.push(this.data.goods)
     app.globalData.cartsForOrder.push(cart);
     wx.navigateTo({
-      url: '/pages/order/submitOrder/submitOrder?sumPrice=' + this.data.sumPrice ,//单位是分
+      url: '/pages/order/submitOrder/submitOrder?byBuy=1&sumPrice=' + this.data.sumPrice ,//单位是分
     })
   }
 })

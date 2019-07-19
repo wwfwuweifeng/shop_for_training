@@ -13,7 +13,6 @@
     "pages/order/buyOrderList/buyOrderList",
     "pages/order/saleOrderList/saleOrderList",
     "pages/shop/shopGoodsList/shopGoodsList",
-    "pages/cart/test/test",
     "pages/user/address/address"
   ],
   "window": {
