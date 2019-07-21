@@ -1,0 +1,6 @@
+.desc-text{
+  margin-top: 4px;
+  color:rgb(128, 125, 125);
+  font-size: 12px;
+  font: bold;
+}

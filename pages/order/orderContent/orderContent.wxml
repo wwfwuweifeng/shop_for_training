@@ -15,7 +15,7 @@
     </view>
 
       <view class='card-view' wx:for="{{orderInfo.orderItemList}}">
-    <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+    <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{item.goodsId}}">
       <van-card title="{{item.goodsName}}" thumb="http://image.wuweifeng.top/shop/{{item.goodsCoverImage}}" price="{{item.buyPrice}}" num="{{item.buyNum}}">
         <view slot="desc" class='desc-view'>
           <view>
@@ -28,7 +28,7 @@
       </van-card>
     </navigator>
   </view>
-  <van-cell border="{{false}}" title="合计金额" icon="gold-coin-o" value="￥{{item.orderTotalMoney}}"  />
+  <van-cell border="{{false}}" title="合计金额" icon="gold-coin-o" value="￥{{orderInfo.order.orderTotalMoney}}"  />
   </view>
 
 

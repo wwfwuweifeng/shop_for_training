@@ -2,7 +2,7 @@
 <view class="container" style='background-color: whitesmoke'>
 <view style='width:100%'>
 <van-cell-group title="我的信息">
-  <van-cell title="微信名" value="{{myInfo.wxName}}" label="授权后更新"/>
+  <van-cell title="微信名" value="{{wxName}}" label="授权后更新"/>
     <van-field
     label="我的姓名"
     required
@@ -63,18 +63,6 @@
   bind:confirm="onConfirmSex"
 />
 </van-popup>
-
-<!-- <picker
-    mode="region"
-    bindchange="bindRegionChange"
-    value="{{myInfo.address}}"
-    style='width:100%;height:50px;'
-  /> -->
-  <!-- <picker mode="region" bindchange="bindRegionChange">
-    <view class="picker">
-      当前选择：
-    </view>
-  </picker> -->
 
 </view>
 <van-toast id="van-toast"/>

@@ -1,6 +1,6 @@
 <!--pages/recommend/index/index.wxml-->
 <view class="main">
-  <van-search value="{{ keyWord }}" placeholder="搜索范围为整个市场" show-action bind:search="onSearch" bind:cancel="onCancel" />
+  <van-search value="{{keyword}}" placeholder="搜索范围为整个市场" show-action bind:search="onSearch" bind:cancel="onCancel" />
   <scroll-view class='container' scroll-y style='height:{{scrollViewHeight}}px;width:100%;'>
     <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
       <block wx:for="{{recommendInfo.recommendImages}}" wx:key="{{index}}">
@@ -16,7 +16,7 @@
       <view class="hotest-box">
         <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="hotest-list" >
         <!-- <view wx:for="{{goodsList}}" wx:key="key" class="hotest-list"> -->
-          <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+          <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{item.goodsId}}">
             <image src="http://image.wuweifeng.top/shop/{{item.coverImage}}"></image>
             <!-- <image src="{{item.picture}}"></image> -->
             <view class="hotest-text van-ellipsis">
@@ -25,7 +25,8 @@
             <view class="hotest-text van-ellipsis" style='color:red'>
               <van-row>
                 <van-col span="10">￥{{item.price}}</van-col>
-                <van-col span="14">已售{{item.sellNum}}件</van-col>
+                <van-col span="14" wx:if="{{item.sellNum>9999}}">已售9999+件</van-col>
+                <van-col span="14" wx:else>已售{{item.sellNum}}件</van-col>
               </van-row>
             </view>
           </navigator>
@@ -38,7 +39,7 @@
       <view class="newest-box">
         <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="newest-list" >
         <!-- <view wx:for="{{goodsList}}" wx:key="key" class="newest-list"> -->
-          <navigator url="/pages/shop/goodsContent/goodsContent?goodsId={{item.goodsId}}">
+          <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{item.goodsId}}">
             <image src="http://image.wuweifeng.top/shop/{{item.coverImage}}"></image>
             <!-- <image src="{{item.picture}}"></image> -->
             <view class="newest-text van-ellipsis">

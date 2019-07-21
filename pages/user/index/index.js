@@ -1,5 +1,5 @@
 // pages/user/index/index.js
-
+import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
 //获取应用实例
 const app = getApp()
 
@@ -55,5 +55,14 @@ Page({
     wx.navigateTo({
       url: '/pages/user/myInfo/myInfo',
     })
+  },
+  goToSellerFunc(event){
+    if (app.globalData.shopUserInfo.userSysInfo.userRole != 2) {
+      Toast.fail("暂无此权限")
+    }else{
+      wx.navigateTo({
+        url: event.target.dataset.url
+      })
+    }
   }
 })

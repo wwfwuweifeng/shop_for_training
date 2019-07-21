@@ -1,35 +1,38 @@
-// pages/contract/contracts/contracts.js
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
 import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
 const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    state: 0,
-    scrollViewHeight: 0,
-    isShowSearchData: false,
-    hasMoreData: false,
-    nextPage: 1,
+    releaseGoodsList: [],
+    goodsState: ["非法", "在售中", "已售完", "已下架", "待审批","审批失败"],
     nowPage: 1,
+    nextPage: 1,
+    isLoadingData: false,
+    isRefreshing: false,
+    hasMoreData: true,
+    scrollViewHeight: 0,
     keyword: "",
-    orderList: [],
-    orderState: ["0", "2", "3", "4", "5", "6", "7"]
+    isShowSearchData: false
   },
 
   /**
- * 生命周期函数--监听页面加载
- */
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
     var sysInfo = wx.getSystemInfoSync();
-    var tempHeight = sysInfo.windowHeight - 98;
+    var tempHeight = sysInfo.windowHeight - 54;
     this.setData({
       scrollViewHeight: tempHeight,
+      keyword: typeof (options.keyword) == "undefined" ? "" : options.keyword
     });
     this.loadListData();
   },
+
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -45,20 +48,19 @@ Page({
       isLoadingData: true
     })
     wx.request({
-      url: app.globalData.api.getOrderListBySeller,
+      url: app.globalData.api.getGoodsListBySeller,
       data: {
         token: app.globalData.token,
         pageNum: this.data.nextPage,
         keyword: this.data.keyword,
-        state: this.data.orderState[this.data.state]
       },
       success: res => {
         if (res.data.code === 200) {
           let hasMoreData = res.data.data.nowPage != res.data.data.nextPage;
           let tempKeyword = this.data.keyword;
-          let temList = this.data.orderList.concat(res.data.data.list)
+          let temList = this.data.releaseGoodsList.concat(res.data.data.list)
           this.setData({
-            orderList: temList,
+            releaseGoodsList: temList,
             nowPage: res.data.data.nowPage,
             nextPage: res.data.data.nextPage,
             hasMoreData: hasMoreData,
@@ -100,7 +102,7 @@ Page({
       Toast("正在加载数据，请稍后再试")
     } else {
       this.setData({
-        orderList: [],
+        releaseGoodsList: [],
         nowPage: 1,
         nextPage: 1,
         keyword: e.detail
@@ -115,30 +117,11 @@ Page({
     } else {
       this.setData({
         keyword: "",
-        orderList: [],
+        releaseGoodsList: [],
         nowPage: 1,
         nextPage: 1
       })
       this.loadListData();
-    }
-  },
-  changeType: function (event) {
-    if (this.data.isLoadingData) {
-      Toast.fail("数据正在加载中，请稍后再试")
-      this.setData({
-        stateType: this.data.state
-      })
-    } else {
-      let tempStateType = event.detail.index;
-      this.setData({
-        keyword: "",
-        orderList: [],
-        state: tempStateType,
-        nowPage: 1,
-        nextPage: 1
-      })
-      this.loadListData();
-
     }
   },
 })

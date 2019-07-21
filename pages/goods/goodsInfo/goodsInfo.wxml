@@ -1,0 +1,80 @@
+<!--pages/contract/infoContent/infoContent.wxml-->
+<scroll-view class='container' style='height:{{scrollViewHeight}}px;width:100%;' scroll-y>
+
+  <view class='header-view'>
+    <text>{{goodsInfo.stateDesc}}</text>
+    <van-icon name="comment" color='white' size='35px' />
+  </view>
+  <view class="goods-view">
+      <view class='card-view'>
+    <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{goods.goodsId}}">
+      <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.price}}">
+        <view slot="desc" class='desc-view'>
+          <view>
+            <van-tag wx:for="{{goods.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">
+              {{myTag}}
+            </van-tag>
+          </view>
+          <!-- 最多含3个标签，每个标签不超过5个字 -->
+        </view>
+      </van-card>
+    </navigator>
+  </view>
+  </view>
+
+
+  <view class="info-view">
+    <view class='info-title'>
+      <text>商品信息</text>
+    </view>
+
+    <view class='info-content'>
+      <van-row>
+        <van-col span="6">商品名：</van-col>
+        <van-col span="18">{{goods.name}}</van-col>
+      </van-row>
+      
+      <van-row>
+        <van-col span="6">商品分类:</van-col>
+        <van-col span="18">{{goods.classifyName}}</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">已售数量：</van-col>
+        <van-col span="18">{{goods.sellNum}}</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">剩余数量：</van-col>
+        <van-col span="18">{{goods.remainNum}}</van-col>
+      </van-row>
+      <van-row>
+          <van-col span="6">商品状态：</van-col>
+          <van-col span="18">{{goodsInfo.stateDesc}}</van-col>
+      </van-row>
+    </view>
+
+  </view>
+
+  <view class="process-view">
+    <view class='info-title'>
+      <text>商品流程信息</text>
+    </view>
+    <view>
+      <van-steps steps="{{goodsInfo.operateLogList}}" active="{{active}}" direction="vertical" active-color="#FE6544" />
+    </view>
+  </view>
+</scroll-view>
+
+<view>
+<van-goods-action>
+    <van-goods-action-icon icon="close" disabled="{{goodsInfo.allowLowerShelf!=1}}" text="下架商品" bind:click="onLowerShelf"/>
+    <van-goods-action-button
+    text="编辑商品"
+    type="warning"
+    bind:click="modifyGoods"
+  />
+    <van-goods-action-button text="{{goodsInfo.msgForMainBt}}" bind:click="onClickMainAction" disabled="{{goodsInfo.allowClickMainBt!=1}}" />
+  </van-goods-action>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-dialog id="van-dialog" />

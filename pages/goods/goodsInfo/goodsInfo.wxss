@@ -1,0 +1,97 @@
+/* pages/contract/infoContent/infoContent.wxss */
+@import '../../../common/common.wxss';
+.header-view{
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: #FE6544;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-view text{
+  color: white;
+  font-size: 17px;
+  margin-left: 15px;
+}
+
+.header-view van-icon{
+  margin-right: 15px
+}
+
+.desc-text{
+  margin-top: 10px;
+  color:black;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.info-button{
+  margin-right: 8px;
+}
+
+.info-view{
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  /* height: 175px; */
+  width: 100%;
+  /* background-color:whitesmoke; */
+}
+
+.info-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left-width: 3px;
+  border-left-style: solid;
+  margin-left: 4px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  height: 23px;
+  width: 100%;
+  /* padding-left: 4px; */
+  /* background-color: #A80000; */
+  border-left-color: #FE6544;
+}
+
+.info-title text{
+  margin-left: 6px;
+  font-weight: 450;
+  font-size: 15px;
+  /* color: white; */
+}
+
+.info-content{
+  /* display: flex;
+  flex-flow: row,wrap; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 10px;
+}
+.info-content van-row{
+  margin-top: 3px;
+  margin-bottom: 4px;
+  color:gray;
+  font-size: 13px;
+}
+
+.process-view{
+  margin-top: 5px;
+  width: 100%;
+  /* background-color:whitesmoke; */
+}
+
+.title-text{
+  font-weight: 500;
+  margin: 8px;
+}
+
+.card-view view{
+  background-color: white;
+}
+.card-view{
+  border-bottom: 1px solid whitesmoke;
+}

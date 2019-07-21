@@ -10,11 +10,10 @@ Page({
   data: {
     wxName: "用户未授权",
     userSex: "只可设置一次",
+    sexIsChange:false,
     myInfo: {},
-    address: [],
     isEdit: false,
-    myAddress: "点击设置",
-    columns: ['男', '女'],
+    columns: ['女', '男'],
     isEditSex: false
   },
 
@@ -31,28 +30,13 @@ Page({
         wxName: app.globalData.userInfo.nickName
       })
     }
-    wx.request({
-      url: app.globalData.api.uDetailedInfo,
-      data: {
-        token: app.globalData.token,
-        wxName: this.data.wxName
-      },
-      success: res => {
-        if (res.data.code === 200) {
-          this.setData({
-            myInfo: res.data.data,
-            userSex: res.data.data.userSex === "" ? this.data.userSex : res.data.data.userSex,
-            myAddress: res.data.data.address === "" ? this.data.myAddress : res.data.data.address
-          })
-        } else {
-          Toast.fail(res.data.message)
-        }
-      },
-      fail: res => {
-        Toast.fail('网络异常');
-      }
+    this.setData({
+      myInfo: app.globalData.shopUserInfo.userPersonalInfo,
+      ["myInfo.userName"]: app.globalData.shopUserInfo.userSysInfo.userName
     })
-    console.log("myInfo.onlaundch isperfectinfo=" + app.globalData.isPerfectInfo)
+    if(this.data.myInfo.userSex==1||this.data.myInfo.userSex==0){
+      this.setData({ userSex: this.data.myInfo.userSex == 1?"男":"女"})
+    }
   },
 
   onConfirmSex(event) {
@@ -61,8 +45,9 @@ Page({
     this.setData({
       isEditSex: false,
       userSex: event.detail.value,
-      ["myInfo.userSex"]: event.detail.value,
-      isEdit: true
+      ["myInfo.userSex"]: event.detail.value=="男"?1:0,
+      isEdit: true,
+      sexIsChange:true
     })
   },
 
@@ -70,36 +55,19 @@ Page({
     this.setData({ isEditSex: false })
   },
   editSex() {
-    if (this.data.myInfo.isAllowModify === 0) {
+    if (typeof(this.data.myInfo.sex)!=undefined) {
       Toast("无法修改")
     } else {
       this.setData({ isEditSex: true })
     }
   },
-  bindRegionChange(e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    let region = e.detail.value;
-    let myAddress;
-    if (region[0] === region[1]) {
-      myAddress = region[0] + "-"
-    } else {
-      myAddress = region[0] + "-" + region[1] + "-"
-    }
-    myAddress = myAddress + region[2]
-    this.setData({
-      address: region,
-      ["myInfo.address"]: myAddress,
-      myAddress: myAddress,
-      isEdit: true
-    })
-  },
 
   saveEdit: function () {
-    if (this.data.myInfo.userName === "" || (this.data.myInfo.userName.length > 0 && this.data.myInfo.userName.trim().length === 0)) {
+    if (this.data.myInfo.userName==null||this.data.myInfo.userName === "" || (this.data.myInfo.userName.length > 0 && this.data.myInfo.userName.trim().length === 0)) {
       Notify("我的姓名不能为空")
-    } else if (this.data.myInfo.userSex === "" || (this.data.myInfo.userSex.length > 0 && this.data.myInfo.userSex.trim().length === 0)) {
+    } else if (this.data.myInfo.userSex != 0 && this.data.myInfo.userSex != 1) {
       Notify("性别不能为空")
-    } else {
+    }else {
       Toast.loading({
         duration: 0, // 持续展示 toast
         forbidClick: true, // 禁用背景点击
@@ -108,37 +76,25 @@ Page({
         mask: true
       });
       wx.request({
-        url: app.globalData.api.uEditUserInfo,
+        url: app.globalData.api.editUserInfo,
         method: "POST",
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         data: {
           token: app.globalData.token,
-          wxName: this.data.myInfo.wxName,
           userName: this.data.myInfo.userName,
-          userSex: this.data.myInfo.userSex,
+          userSex: this.data.userSex,
           telNum: this.data.myInfo.telNum,
           email: this.data.myInfo.email,
-          address: this.data.myInfo.address
+          shopName: this.data.myInfo.shopName
         },
         success: res => {
           Toast.clear()
           if (res.data.code === 200) {
             this.setData({
-              myInfo: res.data.data,
-              userSex: res.data.data.userSex === "" ? this.data.userSex : res.data.data.userSex,
-              myAddress: res.data.data.address === "" ? this.data.myAddress : res.data.data.address,
               isEdit: false
             })
+            app.globalData.shopUserInfo.userPersonalInfo=res.data.data;
             Toast.success("保存成功")
-            //此部分只是临时使用
-            // app.globalData.isPerfectInfo = 1;
-            // wx.setStorageSync("isPerfectInfo", 1)
-            //下面的才是正确的代码
-            app.globalData.userName = this.data.myInfo.userName;
-            wx.setStorageSync("userName", this.data.myInfo.userName)
-            app.globalData.isPerfectInfo = res.data.data.isPerfectInfo;
-            wx.setStorageSync("isPerfectInfo", res.data.data.isPerfectInfo)
-            // console.log("myInfo.save isperfectinfo=" + app.globalData.isPerfectInfo)
           } else {
             Toast.fail(res.data.message)
           }
@@ -166,6 +122,10 @@ Page({
     } else if (fieldName === "email") {
       this.setData({
         ["myInfo.email"]: event.detail
+      })
+    }else if(fieldName==="shopName"){
+      this.setData({
+        ["myInfo.shopName"]: event.detail
       })
     }
   }

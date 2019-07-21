@@ -20,7 +20,7 @@
         </view>
         <view class="product">
           <view class="product-list" wx:for="{{item.secondGoodsClassifyList}}" wx:key="index" wx:for-item="val">
-            <navigator url="/pages/shop/goodsList/goodsList?classifyId={{val.id}}&classifyName={{val.classifyName}}">
+            <navigator url="/pages/goods/goodsList/goodsList?classifyId={{val.id}}&classifyName={{val.classifyName}}">
               <image src="http://image.wuweifeng.top/shop/{{val.coverImage}}"></image>
               <view class="classname">
                 <text>{{val.classifyName}}</text>

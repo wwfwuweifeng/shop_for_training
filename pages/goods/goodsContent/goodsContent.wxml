@@ -5,7 +5,7 @@
     <view class="goods-price">￥{{goods.price}}</view>
     <view class="goods-stock">已售{{goods.sellNum}}</view>
   </view>
-  <van-cell wx:if="{{comeFromShop!=1}}" title="{{goods.shopName}}" icon="shop-o" value="进店逛逛" is-link url="/pages/shop/shopGoodsList/shopGoodsList?shopId={{goods.shopId}}&shopName={{goods.shopName}}" />
+  <van-cell wx:if="{{comeFromShop!=1}}" title="{{goods.shopName}}" icon="shop-o" value="进店逛逛" is-link url="/pages/goods/shopGoodsList/shopGoodsList?shopId={{goods.shopId}}&shopName={{goods.shopName}}" />
   <view class="goods-tab-box">
     <view class="goods-tab-nav {{curIndex === 0 ?'on':''}}" bindtap="bindTap" data-index="0">商品详情</view>
     <view class="goods-tab-nav {{curIndex === 1 ?'on':''}}" bindtap="bindTap" data-index="1">产品参数</view>

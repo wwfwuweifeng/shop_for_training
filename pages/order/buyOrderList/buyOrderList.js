@@ -2,7 +2,6 @@
 import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
 import Notify from '../../../miniprogram_npm/vant-weapp/notify/notify';
 const app = getApp()
-const myConst = app.globalConst;
 Page({
 
   /**

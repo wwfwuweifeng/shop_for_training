@@ -6,14 +6,17 @@
     "pages/user/index/index",
     "pages/user/myInfo/myInfo",
     "pages/cart/index/index",
-    "pages/shop/index/index",
-    "pages/shop/goodsList/goodsList",
-    "pages/shop/goodsContent/goodsContent",
+    "pages/goods/index/index",
+    "pages/goods/goodsList/goodsList",
+    "pages/goods/goodsContent/goodsContent",
     "pages/order/orderContent/orderContent",
     "pages/order/buyOrderList/buyOrderList",
     "pages/order/saleOrderList/saleOrderList",
-    "pages/shop/shopGoodsList/shopGoodsList",
-    "pages/user/address/address"
+    "pages/goods/shopGoodsList/shopGoodsList",
+    "pages/user/address/address",
+    "pages/goods/releaseGoodsList/releaseGoodsList",
+    "pages/goods/goodsInfo/goodsInfo",
+    "pages/"
   ],
   "window": {
     "navigationBarTitleText": "小招喵市场",
@@ -65,7 +68,7 @@
         "text": "推荐"
       },
       {
-        "pagePath": "pages/shop/index/index",
+        "pagePath": "pages/goods/index/index",
         "iconPath": "image/shop.png",
         "selectedIconPath": "image/shopClick.png",
         "text": "市场"
