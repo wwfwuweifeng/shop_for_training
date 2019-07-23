@@ -27,7 +27,7 @@
       <van-cell icon="orders-o" is-link title="我购买的订单" link-type="navigateTo" url="/pages/order/buyOrderList/buyOrderList" />
     </van-cell-group>
     <van-cell-group title="卖家相关">
-      <van-cell icon="new-o"  is-link title="发布商品"  data-url="/pages/goods/releaseGoodsList/releaseGoodsList" bind:click="goToSellerFunc"/>
+      <van-cell icon="new-o"  is-link title="发布商品"  data-url="/pages/goods/editGoods/editGoods" bind:click="goToSellerFunc"/>
       <van-cell icon="shop-o" is-link title="我发布的商品" data-url="/pages/goods/releaseGoodsList/releaseGoodsList" bind:click="goToSellerFunc"/>
       <van-cell icon="balance-o" is-link title="我销售的订单" data-url="/pages/order/saleOrderList/saleOrderList" bind:click="goToSellerFunc"/>
     </van-cell-group>

@@ -29,6 +29,7 @@
     <van-field
     label="详细地址"
     required
+    fixed="{{true}}"
     data-field="receiverAddressDetail"
     value="{{userPersonalInfo.receiverAddressDetail}}"
     placeholder="如道路、门牌号、小区名、楼栋号等"

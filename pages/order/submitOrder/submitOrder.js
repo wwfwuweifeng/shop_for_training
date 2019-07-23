@@ -51,6 +51,7 @@ Page({
         receiverPeople: this.data.userPersonalInfo.receiverName + "  " + this.data.userPersonalInfo.receiverTel,
         receiverAddress: this.data.userPersonalInfo.receiverAddressSimple + this.data.userPersonalInfo.receiverAddressDetail,
         cartList: buyGoodsList,
+        totalMoney: this.data.totalPrice
         // cart:{}
       },
       success:res=>{
@@ -75,6 +76,7 @@ Page({
         receiverPeople: this.data.userPersonalInfo.receiverName + "  " + this.data.userPersonalInfo.receiverTel,
         receiverAddress: this.data.userPersonalInfo.receiverAddressSimple + this.data.userPersonalInfo.receiverAddressDetail,
         cart: oneCart,
+        totalMoney: this.data.totalPrice
         // cartList:[]
       },
       success: res => {

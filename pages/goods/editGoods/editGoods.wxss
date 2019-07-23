@@ -1,0 +1,96 @@
+/* pages/template/create/create.wxss */
+.content-view{
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+  width: 100%
+}
+
+.button-view{
+  display: flex;
+  height: 25%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-view button{
+  width: 130px;
+  margin: 10px;
+}
+van-cell-group{
+  margin-top: 5px;
+}
+
+.view-small{
+  display: flex;
+  height: 100px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.view-small button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+.view-small image{
+  height: 50px;
+  width: 50px;
+}
+.view-small text{
+  margin-top: 5px;
+  color: gray;
+  font-size: 15px;
+  font-weight: 600;
+}
+.teach-view{
+  width: 100%;
+  font-size: 14px;
+  color: gray;
+  margin-left: 3px;
+  margin-top: 5px;
+  align-self: flex-start;
+}
+.add-bt-view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.add-bt-view button{
+  width: 100px;
+}
+
+.goods-cover-view{
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.goods-cover-view image{
+    width: 600rpx;
+    height: 450rpx;
+    display: block;
+}
+.no-upload{
+    margin-top: 5px;
+    font-size: 15px;
+    color: #999;
+    text-align: center;
+}
+.goods-cover-view button{
+  width: 200px;
+  height: 42px;
+  margin-top: 10px;
+}

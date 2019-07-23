@@ -1,0 +1,70 @@
+<!--pages/template/create/create.wxml-->
+<van-steps steps="{{ steps }}" active="{{ active }}" active-color="#A80000" />
+<view class='container' style='height:{{containerViewHeight}}px;width:100%; background-color: whitesmoke;'>
+  <view wx:if="{{active==0}}" class='content-view'>
+    <van-cell-group title="商品信息">
+      <van-field bind:change="fieldInput" data-field="name" autosize required fixed="{{true}}" type="textarea" label="商品名" placeholder="不超过25字" maxlength="25" value="{{goods.name}}" />
+      <van-field bind:change="fieldInput" data-field="price" required label="价格" placeholder="单位￥，大于0，精确到分" value="{{goods.price}}" type="number" />
+      <van-field bind:change="fieldInput" data-field="remainNum" required label="库存量" placeholder="大于等于0" value="{{goods.remainNum}}" type="number" />
+      <van-cell required title="商品分类" is-link value="{{goods.classifyName}}" bind:click="showClassify" />
+    </van-cell-group>
+
+    <van-cell-group title="商品标签">
+      <van-field required bind:change="fieldInputTag" data-field="tagOne" label="标签1" placeholder="不超过5字，必填" maxlength="5" value="{{tags.tagOne}}" />
+      <van-field bind:change="fieldInputTag" data-field="tagTwo" label="标签2" placeholder="不超过5字，选填" maxlength="5" value="{{tags.tagTwo}}" />
+      <van-field bind:change="fieldInputTag" data-field="tagThree" label="标签3" placeholder="不超过5字，选填" maxlength="5" value="{{tags.tagThree}}" />
+    </van-cell-group>
+  </view>
+
+  <scroll-view wx:if="{{active==1}}" scroll-y class='content-view'>
+    <van-cell-group title="商品介绍">
+      <van-field autosize required fixed="{{true}}" type="textarea" label="正文" placeholder="暂不支持富文本" value="{{goods.detail}}" data-field="detail" bind:change="fieldInput" />
+    </van-cell-group>
+  </scroll-view>
+
+  <scroll-view scroll-y wx:if="{{active==2}}" class='content-view'>
+    <van-cell-group title="新增参数">
+      <van-field value="{{paramKey}}" label="参数名" placeholder="不超过10字" maxlength="10" bind:change="fieldInputParam" data-field="paramKey"/>
+      <van-field value="{{paramValue}}" label="参数值" placeholder="不超过15字" maxlength="15" bind:change="fieldInputParam" data-field="paramValue"/>
+      <view class='add-bt-view'>
+        <van-button type='warning' size="small" plain round bind:click="addParam">新增</van-button>
+      </view>
+    </van-cell-group>
+
+    <van-cell-group title="商品参数">
+      <van-field wx:if="{{goodsParamList.length<=0}}" value="暂无相关参数信息" input-align="center" border="{{false}}" readonly />
+      <!-- <van-cell wx:for="{{goodsParamList}}" title="{{item.paramKey}}" value="{{item.paramValue}}">
+      <van-icon slot="right-icon" name="cross" class="custom-icon" bind:click="delParam"/>
+      </van-cell> -->
+      <van-field
+      wx:for="{{goodsParamList}}" data-index="{{index}}" label="{{item.paramName}}" value="{{item.paramValue}}"
+readonly
+    icon="cross"
+    bind:click-icon="delParam"
+  />
+    </van-cell-group>
+  </scroll-view>
+
+  <scroll-view wx:if="{{active==3}}" scroll-y class='content-view'>
+    <view class="goods-cover-view">
+    <image wx:if="{{!isSelectUploadImage&&goodsId==''}}" src="http://image.wuweifeng.top/shop/noUpload.jpg"></image>
+    <view wx:if="{{!isSelectUploadImage&&goodsId==''}}" class="no-upload">请上传商品封面~</view>
+    <image wx:if="{{isSelectUploadImage}}" src="{{imageFilePath}}"></image>
+    <image wx:if="{{!isSelectUploadImage&&goodsId!=''}}" src="http://image.wuweifeng.top/shop/{{goods.coverImage}}"></image>
+    <van-button type='warning'  plain round bind:click="selectImage">选择图片</van-button>
+    </view>
+  </scroll-view>
+
+  <view class='button-view'>
+    <van-button type='info' wx:if="{{active!=0}}" plain round bind:click="previousStep">上一步</van-button>
+    <van-button wx:if="{{active!=3}}" type="danger" plain round bind:click="nextStep">下一步</van-button>
+    <van-button wx:elif="{{active==3&&goodsId==''}}" type="danger" plain round bind:click="nextStep">完成添加</van-button>
+    <van-button wx:elif="{{active==3&&goodsId!=''}}" type="danger" plain round bind:click="nextStep">提交修改</van-button>
+  </view>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-dialog title="温馨提示" show="{{ isShow }}" message="{{showMessage}}" confirm-button-text="确定" bind:confirm="clickConfirm" />
+
+<van-popup show="{{ isShowClassify }}" position="bottom" bind:close="onClose">
+  <van-picker style='width:100%;' show-toolbar columns="{{columns}}" title="商品分类" bind:cancel="onClose" bind:confirm="onConfirmClassify" bind:change="onChangeClassify" /></van-popup>

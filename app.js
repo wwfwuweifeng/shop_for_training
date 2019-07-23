@@ -56,6 +56,8 @@ App({
       editGoodsBySeller:'/goods/editGoodsBySeller', //卖家编辑商品信息
       operateGoodsStateBySeller:'/goods/operateGoodsStateBySeller', //卖家操作商品状态
       getGoodsClassifyList: '/goods/classifyList',//获取商品的分类列表
+      editGoodsDetailBySellerWithImage:'/goods/editGoodsDetailBySellerWithImage',  //卖家编辑商品信息，带图片
+      editGoodsDetailBySellerWithOutImage: '/goods/editGoodsDetailBySellerWithOutImage',  //卖家编辑商品信息，不带图片
 
       //order模块
       submitOrderByCart:'/order/submitOrderByCart', //通过购物车提交订单

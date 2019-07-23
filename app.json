@@ -16,7 +16,7 @@
     "pages/user/address/address",
     "pages/goods/releaseGoodsList/releaseGoodsList",
     "pages/goods/goodsInfo/goodsInfo",
-    "pages/"
+    "pages/goods/editGoods/editGoods"
   ],
   "window": {
     "navigationBarTitleText": "小招喵市场",

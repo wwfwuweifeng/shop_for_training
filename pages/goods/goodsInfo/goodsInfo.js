@@ -107,5 +107,10 @@ Page({
         wx.stopPullDownRefresh();
       }
     })
+  },
+  modifyGoods(){
+    wx.redirectTo({
+      url: '/pages/goods/editGoods/editGoods?goodsId='+this.data.goodsId,
+    })
   }
 })
