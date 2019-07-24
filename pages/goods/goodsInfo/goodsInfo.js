@@ -36,10 +36,6 @@ Page({
     this.loadGoodsInfo()
   },
 
-  onClickMainAction: function () {
-
-  },
-
   //取消按钮
   onLowerShelf: function () {
     Dialog.confirm({
@@ -112,5 +108,39 @@ Page({
     wx.redirectTo({
       url: '/pages/goods/editGoods/editGoods?goodsId='+this.data.goodsId,
     })
+  },
+  onClickMainAction(){
+    Dialog.confirm({
+      title: "请确认",
+      message: '是否申请上架',
+      asyncClose: true
+    }).then(() => {
+      wx.request({
+        url: app.globalData.api.operateGoodsStateBySeller,
+        method: "POST",
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+        data: {
+          token: app.globalData.token,
+          goodsId: this.data.goodsId,
+          operate: 1   //申请上架
+        },
+        success: res => {
+          if (res.data.code == 200) {
+            this.setData({
+              goodsInfo: res.data.data,
+              goods: res.data.data.goods
+            })
+          } else {
+            Toast.fail(res.data.message)
+          }
+        },
+        complete: res => {
+          Dialog.close();
+        }
+      })
+    }).catch(() => {
+      // on cancel
+      Dialog.close();
+    });
   }
 })

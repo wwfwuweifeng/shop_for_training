@@ -49,7 +49,7 @@ Page({
       })
     } else if (fieldName === "price") {
       this.setData({
-        ["goods.price"]: event.detail
+        ["goods.strPrice"]: event.detail
       })
     } else if (fieldName === "remainNum") {
       this.setData({
@@ -103,7 +103,7 @@ Page({
               className: 'column1'
             },
             {
-              values: goodsClassifies["男装"],
+              values: goodsClassifies["服饰"],
               className: 'column2',
             }
           ]
@@ -131,7 +131,6 @@ Page({
       sourceType: ['album', 'camera'],
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
-        console.log(res.tempFilePaths)
         self.setData({ imageFilePath: res.tempFilePaths[0], isSelectUploadImage:true})
       },
       fail(res){
@@ -249,8 +248,9 @@ Page({
       method: "POST",
       data:{
         token: app.globalData.token,
+        goodsId:goods.goodsId,
         name: goods.name,
-        price: goods.price,
+        strPrice: goods.strPrice,
         remainNum: goods.remainNum,
         classifyName: goods.classifyName,
         tag: goods.tag,
@@ -269,6 +269,9 @@ Page({
         } else {
           Toast.fail(res.data.message)
         }
+      },
+      fail:res=>{
+        Toast.fail("请确保所有必填项均已填写")
       }
     })
   },
@@ -289,8 +292,9 @@ Page({
       name: "imageFile",
       formData: {
         token: app.globalData.token,
+        goodsId:goods.goodsId,
         name:goods.name,
-        price:goods.price,
+        strPrice: goods.strPrice,
         remainNum:goods.remainNum,
         classifyName:goods.classifyName,
         tag:goods.tag,
@@ -299,7 +303,6 @@ Page({
         // goodsParamList: this.data.goodsParamList
       },
       success:res=>{
-        console.log("i am in this")
         let data = JSON.parse(res.data)
         if(data.code==200){
           Toast.success("提交成功");
@@ -312,6 +315,9 @@ Page({
         }else{
           Toast.fail(data.message)
         }
+      },
+      fail: res => {
+        Toast.fail("请确保所有必填项均已填写")
       }
     })
   },

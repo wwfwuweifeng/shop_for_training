@@ -13,7 +13,7 @@
       <view wx:for="{{carts}}">
         <van-cell border="{{false}}" title="商家" icon="shop-o" value="{{item.shopName}}" />
         <view class='card-view' wx:for="{{item.list}}" wx:for-item="goods">
-          <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.price}}" thumb-link="/pages/goods/goodsContent/goodsContent?goodsId={{goods.goodsId}}">
+          <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.strPrice}}" thumb-link="/pages/goods/goodsContent/goodsContent?goodsId={{goods.goodsId}}">
             <view slot="desc" class='desc-view'>
               <view style="margin-bottom: 8px;">
                 <van-tag wx:for="{{goods.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom:4px;">

@@ -69,6 +69,8 @@ App({
       getOrderListByBuyer: '/order/orderListByBuyer',  //买方获取订单列表
       getOrderListBySeller:'/order/orderListBySeller',  //卖家获取订单列表
       getOrderDetail:'/order/detail', //获取订单详情
+      payByCart:"/order/payByCart", //为多个订单付款
+      payByOrder: "/order/payByOrder" //为单个订单付款
 
       
     },

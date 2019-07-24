@@ -8,7 +8,7 @@
   <view class="goods-view">
       <view class='card-view'>
     <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{goods.goodsId}}">
-      <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.price}}">
+      <van-card title="{{goods.name}}" thumb="http://image.wuweifeng.top/shop/{{goods.coverImage}}" price="{{goods.strPrice}}">
         <view slot="desc" class='desc-view'>
           <view>
             <van-tag wx:for="{{goods.tagList}}" wx:for-item="myTag" plain color="#FE6544 " style="margin-right: 4px;margin-bottom: 4px;">

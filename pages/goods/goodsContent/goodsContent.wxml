@@ -2,7 +2,7 @@
   <view class="goods-box">
     <image class="goods-thumb" src="http://image.wuweifeng.top/shop/{{goods.coverImage}}"></image>
     <view class="goods-title">{{goods.name}}</view>
-    <view class="goods-price">￥{{goods.price}}</view>
+    <view class="goods-price">￥{{goods.strPrice}}</view>
     <view class="goods-stock">已售{{goods.sellNum}}</view>
   </view>
   <van-cell wx:if="{{comeFromShop!=1}}" title="{{goods.shopName}}" icon="shop-o" value="进店逛逛" is-link url="/pages/goods/shopGoodsList/shopGoodsList?shopId={{goods.shopId}}&shopName={{goods.shopName}}" />

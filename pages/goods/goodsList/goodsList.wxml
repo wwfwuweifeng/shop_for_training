@@ -8,7 +8,7 @@
   <view class='card-view' wx:for="{{goodsList}}">
     <van-cell border="{{false}}" title="商家" icon="shop-o" value="{{item.shopName}}" is-link url="/pages/goods/shopGoodsList/shopGoodsList?shopId={{item.shopId}}&shopName={{item.shopName}}" />
     <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{item.goodsId}}">
-      <van-card title="{{item.name}}" thumb="http://image.wuweifeng.top/shop/{{item.coverImage}}" price="{{item.price}}">
+      <van-card title="{{item.name}}" thumb="http://image.wuweifeng.top/shop/{{item.coverImage}}" price="{{item.strPrice}}">
         <view slot="desc" class='desc-view'>
           <text class='desc-text'>已售：{{item.sellNum}}</text>
 

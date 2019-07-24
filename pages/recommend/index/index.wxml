@@ -24,7 +24,7 @@
             </view>
             <view class="hotest-text van-ellipsis" style='color:red'>
               <van-row>
-                <van-col span="10">￥{{item.price}}</van-col>
+                <van-col span="10">￥{{item.strPrice}}</van-col>
                 <van-col span="14" wx:if="{{item.sellNum>9999}}">已售9999+件</van-col>
                 <van-col span="14" wx:else>已售{{item.sellNum}}件</van-col>
               </van-row>
@@ -46,7 +46,7 @@
               <text>{{item.name}}</text>
             </view>
             <view class="newest-text van-ellipsis" style='font-weight: bold;color:#FE6544;'>
-              <text>￥{{item.price}}</text>
+              <text>￥{{item.strPrice}}</text>
             </view>
           </navigator>
         </view>

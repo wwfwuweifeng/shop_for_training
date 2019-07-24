@@ -2,7 +2,11 @@ import Toast from '../../../miniprogram_npm/vant-weapp/toast/toast';
 const app = getApp()
 Page({
   data: {
+    payInfo:{},
+    isShowPay:false,
     userPersonalInfo:{},
+    payStype:'0',
+    payStypeDesc:"银联",
     hasAddress: false,
     totalPrice: 0,
     carts: [],
@@ -26,8 +30,9 @@ Page({
   },
 
   submitOrder(){
-    console.log(this.data.byBuy)
-    if(this.data.byBuy==1){
+    if (!this.data.hasAddress){
+      Toast.fail("请选择收货地址")
+    }else if(this.data.byBuy==1){
       this.submitOrderByBuy();
     }else{
       this.submitOrderByCart();
@@ -56,7 +61,10 @@ Page({
       },
       success:res=>{
         if(res.data.code==200){
-          console.log(res.data.data)
+          this.setData({
+            isShowPay: true,
+            payInfo: res.data.data
+          })
         }else{
           Toast.fail(res.data.message)
         }
@@ -81,9 +89,85 @@ Page({
       },
       success: res => {
         if (res.data.code == 200) {
-          console.log(res.data.data)
+          this.setData({
+            isShowPay: true,
+            payInfo:res.data.data
+          })
         } else {
           Toast.fail(res.data.message)
+        }
+      }
+    })
+  },
+  clickRadio: function (event) {
+    this.setData({
+      payStype: event.target.dataset.name,
+      payStypeDesc: event.target.dataset.msg
+    });
+  },
+  onClose(){
+    wx.redirectTo({
+      url: '/pages/order/buyOrderList/buyOrderList',
+    })
+  },
+  //有时间接入微信支付
+  payMoney(){
+    if (this.data.byBuy == 1) {
+      this.payForOrder();
+    } else {
+      this.payForCart();
+    }
+  },
+  payForCart(){
+    wx.request({
+      url: app.globalData.api.payByCart,
+      method: "POST",
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      data:{
+        token:app.globalData.token,
+        cartNum: this.data.payInfo.cartNum,
+        totalMoney: this.data.payInfo.totalMoney,
+        payType:this.data.payStype
+      },
+      success:res=>{
+        if(res.data.code==200){
+          this.setData({ isShowPay: false })
+          Toast.success("支付成功");
+          setTimeout(() => {
+            Toast.clear();
+            wx.redirectTo({
+              url: "/pages/order/buyOrderList/buyOrderList"
+            })
+          }, 1500)
+        }else{
+          Toast.fail(res.data.message);
+        }
+      }
+    })
+  },
+  payForOrder() {
+    wx.request({
+      url: app.globalData.api.payByOrder,
+      method: "POST",
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      data: {
+        token: app.globalData.token,
+        orderId: this.data.payInfo.orderId,
+        totalMoney: this.data.payInfo.totalMoney,
+        payType: this.data.payStype
+      },
+      success: res => {
+        if (res.data.code == 200) {
+          this.setData({isShowPay:false})
+          Toast.success("支付成功");
+          setTimeout(() => {
+            Toast.clear();
+            wx.redirectTo({
+              url: "/pages/order/buyOrderList/buyOrderList"
+            })
+          }, 1500)
+        } else {
+          Toast.fail(res.data.message);
         }
       }
     })
