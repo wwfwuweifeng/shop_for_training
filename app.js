@@ -29,7 +29,7 @@ App({
     })
   },
   globalData: {
-    serverUrl:"http://api.wuweifeng.top/shop",
+    serverUrl:"https://api.wuweifeng.top/shop",
     userInfo: null, //微信官方返回的用户信息
     shopUserInfo:null,  //自己的应用服务器返回的用户信息
     token:null,
@@ -70,8 +70,8 @@ App({
       getOrderListBySeller:'/order/orderListBySeller',  //卖家获取订单列表
       getOrderDetail:'/order/detail', //获取订单详情
       payByCart:"/order/payByCart", //为多个订单付款
-      payByOrder: "/order/payByOrder" //为单个订单付款
-
+      payByOrder: "/order/payByOrder", //为单个订单付款
+      operateForOrder:"/order/" //操作订单，该url不是一个完整的url
       
     },
   }

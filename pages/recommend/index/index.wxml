@@ -14,7 +14,7 @@
         <text>热销商品</text>
       </view>
       <view class="hotest-box">
-        <view wx:for="{{recommendInfo.newGoodsList}}" wx:key="key" class="hotest-list" >
+        <view wx:for="{{recommendInfo.hotSellGoodsList}}" wx:key="key" class="hotest-list" >
         <!-- <view wx:for="{{goodsList}}" wx:key="key" class="hotest-list"> -->
           <navigator url="/pages/goods/goodsContent/goodsContent?goodsId={{item.goodsId}}">
             <image src="http://image.wuweifeng.top/shop/{{item.coverImage}}"></image>

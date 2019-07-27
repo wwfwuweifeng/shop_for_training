@@ -117,3 +117,44 @@
 .card-view{
   border-bottom: 1px solid whitesmoke;
 }
+.pay-view{
+  width: 100%;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+.pay-view button{
+  background-color: #FE6544;
+  font-size: 15px;
+  color:white;
+  width: 200px;
+  height: 42px;
+  margin-top: 15px;
+}
+.money-text{
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.send-view{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-view button{
+  background-color: #FE6544;
+  font-size: 15px;
+  color:white;
+  width: 200px;
+  height: 42px;
+  margin-top: 15px;
+}
