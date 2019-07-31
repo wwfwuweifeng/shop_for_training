@@ -15,18 +15,20 @@ Page({
     this.setData({
       scrollViewHeight: tempHeight,
     });
+  },
+  onShow:function(){
     //获取首页最近新品信息
     wx.request({
       url: app.globalData.api.getRecommendGoods,
-      data:{
-        token:app.globalData.token
-        },
-      success:res=> {
-        if(res.data.code===200){
+      data: {
+        token: app.globalData.token
+      },
+      success: res => {
+        if (res.data.code === 200) {
           this.setData({
             recommendInfo: res.data.data
           })
-        }else{
+        } else {
           console.log(res.data.message)
         }
       }

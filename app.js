@@ -29,7 +29,8 @@ App({
     })
   },
   globalData: {
-    serverUrl:"https://api.wuweifeng.top/shop",
+    serverUrl:"https://api.wuweifeng.top/shop-for-training",  //云服务器
+    // serverUrl: "http://api.wuweifeng.top/shop",  //本地
     userInfo: null, //微信官方返回的用户信息
     shopUserInfo:null,  //自己的应用服务器返回的用户信息
     token:null,

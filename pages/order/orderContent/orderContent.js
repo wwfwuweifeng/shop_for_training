@@ -146,7 +146,7 @@ Page({
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       data: {
         token: app.globalData.token,
-        orderId: this.data.orderInfo.orderId,
+        orderId: this.data.orderId,
         totalMoney: this.data.orderInfo.order.orderTotalMoney,
         payType: this.data.payStype
       },

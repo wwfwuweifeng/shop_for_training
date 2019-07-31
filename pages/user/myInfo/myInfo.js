@@ -32,7 +32,8 @@ Page({
     }
     this.setData({
       myInfo: app.globalData.shopUserInfo.userPersonalInfo,
-      ["myInfo.userName"]: app.globalData.shopUserInfo.userSysInfo.userName
+      ["myInfo.userName"]: app.globalData.shopUserInfo.userSysInfo.userName,
+      ["myInfo.isAllowModify"]: app.globalData.shopUserInfo.userPersonalInfo.shopName!=""
     })
     if(this.data.myInfo.userSex==1||this.data.myInfo.userSex==0){
       this.setData({ userSex: this.data.myInfo.userSex == 1?"男":"女"})
@@ -55,10 +56,11 @@ Page({
     this.setData({ isEditSex: false })
   },
   editSex() {
-    if (typeof(this.data.myInfo.sex)!=undefined) {
-      Toast("无法修改")
-    } else {
+    console.log(this.data.myInfo.sex);
+    if (typeof (this.data.myInfo.sex) == "undefined") {
       this.setData({ isEditSex: true })
+    } else {
+      Toast("无法修改")
     }
   },
 

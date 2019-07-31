@@ -16,7 +16,7 @@
     data-field="shopName"
     value="{{myInfo.shopName}}"
     placeholder="一旦设置成功，则无法修改/暂无权限"
-    readonly="{{myInfo.isAllowModify==0}}"
+    readonly="{{myInfo.isAllowModify}}"
     bind:change="fieldInput"
     input-align="right"
   />

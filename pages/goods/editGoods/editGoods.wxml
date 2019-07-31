@@ -4,7 +4,7 @@
   <view wx:if="{{active==0}}" class='content-view'>
     <van-cell-group title="商品信息">
       <van-field bind:change="fieldInput" data-field="name" autosize required fixed="{{true}}" type="textarea" label="商品名" placeholder="不超过25字" maxlength="25" value="{{goods.name}}" />
-      <van-field bind:change="fieldInput" data-field="price" required label="价格" placeholder="单位￥，大于0，精确到分" value="{{goods.strPrice}}" type="number" />
+      <van-field bind:change="fieldInput" data-field="price" required label="价格" placeholder="单位￥，大于0，精确到分" value="{{goods.strPrice}}" />
       <van-field bind:change="fieldInput" data-field="remainNum" required label="库存量" placeholder="大于等于0" value="{{goods.remainNum}}" type="number" />
       <van-cell required title="商品分类" is-link value="{{goods.classifyName}}" bind:click="showClassify" />
     </van-cell-group>

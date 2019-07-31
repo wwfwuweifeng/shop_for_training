@@ -88,6 +88,7 @@ Page({
         token: app.globalData.token
       },
       success: res => {
+        let parentClassify="";
         if (res.data.code === 200) {
           for (let firstClassify of res.data.data) {
             let secondClassifies = []
@@ -95,6 +96,9 @@ Page({
               secondClassifies.push(secondClassify.classifyName)
             }
             if (secondClassifies.length > 0) {
+              if (parentClassify==""){
+                parentClassify = firstClassify.firstClassifyName;
+              }
               goodsClassifies[firstClassify.firstClassifyName] = secondClassifies
             }
           }
@@ -103,7 +107,7 @@ Page({
               className: 'column1'
             },
             {
-              values: goodsClassifies["服饰"],
+              values: goodsClassifies[parentClassify],
               className: 'column2',
             }
           ]
@@ -149,8 +153,9 @@ Page({
       this.setData({
         goodsParamList:paramList,
         paramKey:"",
-        paramValue:""
+        paramValue: ""
       })
+      // this.setData({ paramValue: ""})
     }
   },
   delParam(event){
@@ -168,7 +173,7 @@ Page({
     }else if(fieldName==="tagTwo"){
       this.setData({ ["tags.tagTwo"]: event.detail })
     }else if(fieldName==="tagThree"){
-      this.setData({ ["tags.tagTwo"]: event.detail })
+      this.setData({ ["tags.tagThree"]: event.detail })
     }else{
       console.log("fieldName为非法值");
     }
